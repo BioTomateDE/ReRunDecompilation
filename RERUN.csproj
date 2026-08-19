@@ -5,7 +5,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>7.3</LangVersion>
+    <!-- <LangVersion>7.3</LangVersion> -->
+    <LangVersion>10.0</LangVersion>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
   </PropertyGroup>
@@ -13,34 +14,34 @@
   <ItemGroup />
   <ItemGroup>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>../../Assemblies/UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>../RERUN_Data/Managed/UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>../../Assemblies/UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>../RERUN_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AudioModule">
-      <HintPath>../../Assemblies/UnityEngine.AudioModule.dll</HintPath>
+      <HintPath>../RERUN_Data/Managed/UnityEngine.AudioModule.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>../../Assemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>../RERUN_Data/Managed/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>../../Assemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+      <HintPath>../RERUN_Data/Managed/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>../../Assemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>../RERUN_Data/Managed/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
-      <HintPath>../../Assemblies/UnityEngine.ParticleSystemModule.dll</HintPath>
+      <HintPath>../RERUN_Data/Managed/UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>../../Assemblies/UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>../RERUN_Data/Managed/UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestWWWModule">
-      <HintPath>../../Assemblies/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <HintPath>../RERUN_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>../../Assemblies/UnityEngine.InputLegacyModule.dll</HintPath>
+      <HintPath>../RERUN_Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
