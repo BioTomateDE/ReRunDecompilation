@@ -11,13 +11,13 @@ public class WinScreen : MonoBehaviour
 
 	public static WinScreen Instance;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		base.gameObject.SetActive(value: false);
 	}
 
-	private void OnEnable()
+	public void OnEnable()
 	{
 		image.CrossFadeAlpha(0f, 0f, ignoreTimeScale: true);
 		image.CrossFadeAlpha(1f, 1f, ignoreTimeScale: true);

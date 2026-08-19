@@ -23,7 +23,7 @@ public class PPController : MonoBehaviour
 
 	public static PPController Instance;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		colorGrading = pp.GetSetting<ColorGrading>();
@@ -31,7 +31,7 @@ public class PPController : MonoBehaviour
 		lensDistortion = pp.GetSetting<LensDistortion>();
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (!(Mathf.Abs(colorGrading.saturation.value - desiredSaturation) < 0.1f))
 		{
@@ -63,7 +63,7 @@ public class PPController : MonoBehaviour
 		chromaticAberration.enabled.value = false;
 	}
 
-	private void OnDestroy()
+	public void OnDestroy()
 	{
 		StopRewind();
 	}

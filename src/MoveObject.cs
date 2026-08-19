@@ -23,13 +23,13 @@ public class MoveObject : Manipulate
 
 	public bool autoPlay;
 
-	private void Awake()
+	public void Awake()
 	{
 		startPos = base.transform.position;
 		sfx = GetComponentInChildren<AudioSource>();
 	}
 
-	private void Start()
+	public void Start()
 	{
 		if (autoPlay)
 		{
@@ -50,7 +50,7 @@ public class MoveObject : Manipulate
 		}
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (active)
 		{

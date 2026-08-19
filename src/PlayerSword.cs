@@ -10,12 +10,12 @@ public class PlayerSword : MonoBehaviour
 
 	public RandomSfx sfx;
 
-	private void Awake()
+	public void Awake()
 	{
 		enemiesHit = new List<Player>();
 	}
 
-	private void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
 		{

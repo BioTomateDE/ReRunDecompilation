@@ -4,7 +4,7 @@ public class Plank : MonoBehaviour
 {
 	public GameObject plankBreak;
 
-	private void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.layer != LayerMask.NameToLayer("Sword"))
 		{

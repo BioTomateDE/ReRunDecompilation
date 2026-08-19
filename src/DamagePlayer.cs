@@ -15,7 +15,7 @@ public class DamagePlayer : MonoBehaviour
 
 	public Transform enemyTorso;
 
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
 	{
 		if (!ready || other.gameObject.layer != LayerMask.NameToLayer("Player"))
 		{
@@ -43,7 +43,7 @@ public class DamagePlayer : MonoBehaviour
 		PlayerStatus.Instance.Damage(damage);
 	}
 
-	private void GetReady()
+	public void GetReady()
 	{
 		ready = true;
 	}

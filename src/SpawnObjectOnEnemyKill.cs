@@ -8,7 +8,7 @@ public class SpawnObjectOnEnemyKill : MonoBehaviour
 
 	private Vector3 size;
 
-	private void Awake()
+	public void Awake()
 	{
 		player = GetComponent<Player>();
 		if (!spawnObject)
@@ -21,7 +21,7 @@ public class SpawnObjectOnEnemyKill : MonoBehaviour
 		}
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (player.hp <= 0)
 		{

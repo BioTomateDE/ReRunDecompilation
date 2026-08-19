@@ -6,13 +6,13 @@ public class Hover : MonoBehaviour
 
 	private float startY;
 
-	private void Awake()
+	public void Awake()
 	{
 		desiredPos = base.transform.position;
 		startY = base.transform.position.y;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		desiredPos.y = startY + Mathf.PingPong(Time.time, 1f) - 0.5f;
 		base.transform.position = Vector3.Lerp(base.transform.position, desiredPos, Time.deltaTime);

@@ -5,7 +5,7 @@ public class TutorialPowerup : MonoBehaviour
 	[TextArea]
 	public string text;
 
-	private void OnDestroy()
+	public void OnDestroy()
 	{
 		Tutorial.Instance.AddText(text);
 	}

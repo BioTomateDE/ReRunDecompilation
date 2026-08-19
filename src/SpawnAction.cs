@@ -11,7 +11,7 @@ public class SpawnAction : Manipulate
 		Invoke("Active", delay);
 	}
 
-	private void Active()
+	public void Active()
 	{
 		GameObject[] array = enemies;
 		for (int i = 0; i < array.Length; i++)

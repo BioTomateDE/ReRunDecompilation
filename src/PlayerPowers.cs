@@ -8,7 +8,7 @@ public class PlayerPowers : MonoBehaviour
 
 	public static PlayerPowers Instance;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 	}

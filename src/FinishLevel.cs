@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FinishLevel : MonoBehaviour
 {
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{

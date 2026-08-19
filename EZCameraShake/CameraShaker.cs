@@ -22,13 +22,13 @@ namespace EZCameraShake
 
 		public List<CameraShakeInstance> ShakeInstances => new List<CameraShakeInstance>(cameraShakeInstances);
 
-		private void Awake()
+		public void Awake()
 		{
 			Instance = this;
 			instanceList.Add(base.gameObject.name, this);
 		}
 
-		private void Update()
+		public void Update()
 		{
 			posAddShake = Vector3.zero;
 			rotAddShake = Vector3.zero;

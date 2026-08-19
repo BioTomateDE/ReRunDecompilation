@@ -10,7 +10,7 @@ public class MyButton : MonoBehaviour
 
 	private bool done;
 
-	private void Awake()
+	public void Awake()
 	{
 		topButtonPos = topButton.transform.position;
 	}
@@ -33,7 +33,7 @@ public class MyButton : MonoBehaviour
 		}
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (done)
 		{

@@ -6,7 +6,7 @@ public class LevelSelect : MonoBehaviour
 {
 	public TextMeshProUGUI[] times;
 
-	private void OnEnable()
+	public void OnEnable()
 	{
 		UpdateTimes();
 	}

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LoadSettings : MonoBehaviour
 {
-	private void Start()
+	public void Start()
 	{
 		if ((bool)GameState.Instance)
 		{

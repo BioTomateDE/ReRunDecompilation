@@ -18,7 +18,7 @@ public class SubText : MonoBehaviour
 
 	public string[] texts;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		maxSize = base.transform.localScale;
@@ -27,7 +27,7 @@ public class SubText : MonoBehaviour
 		base.transform.localScale = Vector3.zero;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		base.transform.localScale = Vector3.Lerp(base.transform.localScale, desiredScale, Time.deltaTime * speed);
 	}
@@ -43,12 +43,12 @@ public class SubText : MonoBehaviour
 		CameraShaker.Instance.ShakeOnce(7f, 5f, 0.3f, 0.3f);
 	}
 
-	private void DelayRemove()
+	public void DelayRemove()
 	{
 		desiredScale = Vector3.zero;
 	}
 
-	private void UpSpeed()
+	public void UpSpeed()
 	{
 		speed = 30f;
 	}

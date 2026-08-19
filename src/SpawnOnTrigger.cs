@@ -4,7 +4,7 @@ public class SpawnOnTrigger : MonoBehaviour
 {
 	public GameObject[] toSpawn;
 
-	private void Start()
+	public void Start()
 	{
 		GameObject[] array = toSpawn;
 		for (int i = 0; i < array.Length; i++)
@@ -13,7 +13,7 @@ public class SpawnOnTrigger : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{

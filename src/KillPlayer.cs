@@ -4,7 +4,7 @@ public class KillPlayer : MonoBehaviour
 {
 	public GameObject blood;
 
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
 	{
 		if (GameManager.Instance.isRewinding)
 		{
@@ -28,7 +28,7 @@ public class KillPlayer : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other)
 	{
 		if (GameManager.Instance.isRewinding)
 		{

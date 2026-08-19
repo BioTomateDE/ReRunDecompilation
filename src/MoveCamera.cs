@@ -36,7 +36,7 @@ public class MoveCamera : MonoBehaviour
 
 	public static MoveCamera Instance { get; private set; }
 
-	private void Start()
+	public void Start()
 	{
 		Instance = this;
 		cam = base.transform.GetChild(0).GetComponent<Camera>();
@@ -47,7 +47,7 @@ public class MoveCamera : MonoBehaviour
 		}
 	}
 
-	private void LateUpdate()
+	public void LateUpdate()
 	{
 		UpdateBob();
 		MoveGun();

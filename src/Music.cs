@@ -24,7 +24,7 @@ public class Music : MonoBehaviour
 
 	public static Music Instance { get; private set; }
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		music = GetComponent<AudioSource>();
@@ -61,7 +61,7 @@ public class Music : MonoBehaviour
 		desiredVolume = 0f;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		music.volume = Mathf.Lerp(music.volume, desiredVolume, Time.deltaTime * fadeSpeed);
 	}

@@ -6,7 +6,7 @@ public class DetectButton : MonoBehaviour
 
 	private MyButton currentButton;
 
-	private void Update()
+	public void Update()
 	{
 		CheckInput();
 		Transform playerCam = PlayerMovement.Instance.playerCam;

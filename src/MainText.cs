@@ -15,7 +15,7 @@ public class MainText : MonoBehaviour
 
 	private AudioSource audio;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		maxSize = base.transform.localScale;
@@ -24,7 +24,7 @@ public class MainText : MonoBehaviour
 		base.transform.localScale = Vector3.zero;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		base.transform.localScale = Vector3.Lerp(base.transform.localScale, Vector3.zero, Time.deltaTime * speed);
 	}
@@ -38,7 +38,7 @@ public class MainText : MonoBehaviour
 		audio.PlayDelayed(0.1f);
 	}
 
-	private void UpSpeed()
+	public void UpSpeed()
 	{
 		speed = 30f;
 	}

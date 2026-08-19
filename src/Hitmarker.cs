@@ -15,7 +15,7 @@ public class Hitmarker : MonoBehaviour
 
 	public string[] texts;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		maxSize = base.transform.localScale;
@@ -23,7 +23,7 @@ public class Hitmarker : MonoBehaviour
 		base.transform.localScale = Vector3.zero;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		base.transform.localScale = Vector3.Lerp(base.transform.localScale, desiredScale, Time.deltaTime * speed);
 	}
@@ -37,12 +37,12 @@ public class Hitmarker : MonoBehaviour
 		CameraShaker.Instance.ShakeOnce(4f, 5f, 0.2f, 0.2f);
 	}
 
-	private void DelayRemove()
+	public void DelayRemove()
 	{
 		desiredScale = Vector3.zero;
 	}
 
-	private void UpSpeed()
+	public void UpSpeed()
 	{
 		speed = 25f;
 	}

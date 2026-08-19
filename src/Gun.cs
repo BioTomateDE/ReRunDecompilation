@@ -58,7 +58,7 @@ public class Gun : MonoBehaviour
 
 	public static Gun Instance { get; set; }
 
-	private void Start()
+	public void Start()
 	{
 		Instance = this;
 		velHistory = new List<Vector3>();
@@ -67,7 +67,7 @@ public class Gun : MonoBehaviour
 		playerCam = PlayerMovement.Instance.playerCam;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if ((bool)PlayerMovement.Instance && !GameManager.Instance.playerDead && !GameManager.Instance.paused && GameManager.Instance.playing)
 		{

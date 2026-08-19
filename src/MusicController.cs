@@ -10,7 +10,7 @@ public class MusicController : MonoBehaviour
 
 	public static MusicController Instance;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		lowpass = GetComponent<AudioLowPassFilter>();
@@ -21,7 +21,7 @@ public class MusicController : MonoBehaviour
 		desiredFreq = 22000f * f;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		lowpass.cutoffFrequency = Mathf.Lerp(lowpass.cutoffFrequency, desiredFreq, Time.deltaTime * 2f);
 	}

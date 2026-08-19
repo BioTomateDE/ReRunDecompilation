@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class LoadCamera : MonoBehaviour
 {
-	private void Start()
+	public void Start()
 	{
 	}
 
-	private void Update()
+	public void Update()
 	{
 	}
 }

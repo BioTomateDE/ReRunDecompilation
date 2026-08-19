@@ -25,7 +25,7 @@ public class PlayerStatus : MonoBehaviour
 
 	private float defaultContrast = 10f;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		vignette = pp.GetSetting<Vignette>();
@@ -51,7 +51,7 @@ public class PlayerStatus : MonoBehaviour
 		}
 	}
 
-	private void StartHealing()
+	public void StartHealing()
 	{
 		healing = true;
 	}
@@ -61,7 +61,7 @@ public class PlayerStatus : MonoBehaviour
 		hp = maxHp;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		float value = 1f - (float)hp / (float)maxHp;
 		value = Mathf.Clamp(value, 0f, 1f);
@@ -86,7 +86,7 @@ public class PlayerStatus : MonoBehaviour
 		}
 	}
 
-	private void OnDestroy()
+	public void OnDestroy()
 	{
 		vignette.intensity.value = defaultVignette;
 		colorGrading.contrast.value = defaultContrast;

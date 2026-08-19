@@ -4,11 +4,11 @@ public class ControlMusic : MonoBehaviour
 {
 	private float desiredFreq;
 
-	private void Awake()
+	public void Awake()
 	{
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if ((bool)MusicController.Instance)
 		{

@@ -70,7 +70,7 @@ public class RigidEnemy : MonoBehaviour
 	[HideInInspector]
 	public bool recovering;
 
-	private void Start()
+	public void Start()
 	{
 		rb = root.GetComponent<Rigidbody>();
 		if ((bool)head)
@@ -101,7 +101,7 @@ public class RigidEnemy : MonoBehaviour
 		DisableSelfCollision(ignore: true);
 	}
 
-	private void FixedUpdate()
+	public void FixedUpdate()
 	{
 		if (state == EnemyState.dead)
 		{
@@ -188,7 +188,7 @@ public class RigidEnemy : MonoBehaviour
 		}
 	}
 
-	private void RecoveryCooldown()
+	public void RecoveryCooldown()
 	{
 		recovering = false;
 	}
@@ -201,7 +201,7 @@ public class RigidEnemy : MonoBehaviour
 		Invoke("GetUp", recoverTime * UnityEngine.Random.Range(0.7f, 1.5f));
 	}
 
-	private void GetUp()
+	public void GetUp()
 	{
 		if (Physics.CheckSphere(root.position, ik.heightAboveGround * 0.5f, ik.whatIsGround))
 		{

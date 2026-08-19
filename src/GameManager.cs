@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
 	private float t;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		enemies = new List<GameObject>();
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 		AutoSplitterData.levelID = SceneManager.GetActiveScene().buildIndex - 1;
 	}
 
-	private void Start()
+	public void Start()
 	{
 		playerTransform = PlayerMovement.Instance.transform;
 		playerTransform.position = spawnPos.position;
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 		positions = new List<Vector3>();
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (isRewinding)
 		{

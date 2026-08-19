@@ -36,7 +36,7 @@ namespace DitzelGames.FastIK
 
 		public Vector3 offset;
 
-		private void Awake()
+		public void Awake()
 		{
 			Init();
 		}

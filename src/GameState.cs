@@ -35,7 +35,7 @@ public class GameState : MonoBehaviour
 
 	public static GameState Instance { get; private set; }
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		Application.targetFrameRate = 200;
@@ -44,7 +44,7 @@ public class GameState : MonoBehaviour
 		lens = pp.GetSetting<LensDistortion>();
 	}
 
-	private void Start()
+	public void Start()
 	{
 		graphics = SaveManager.Instance.state.graphics;
 		shake = SaveManager.Instance.state.cameraShake;

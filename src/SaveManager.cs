@@ -8,7 +8,7 @@ public class SaveManager : MonoBehaviour
 
 	public static SaveManager Instance { get; set; }
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		Load();

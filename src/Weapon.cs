@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
 		return true;
 	}
 
-	private void GetReady()
+	public void GetReady()
 	{
 		readyToShoot = true;
 	}

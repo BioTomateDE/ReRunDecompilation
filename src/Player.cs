@@ -39,14 +39,14 @@ public class Player : MonoBehaviour
 
 	public GameObject killFx;
 
-	private void Awake()
+	public void Awake()
 	{
 		ikController = GetComponent<RigidEnemy>();
 		playerController = GetComponent<PlayerController>();
 		rb = ikController.root.GetComponent<Rigidbody>();
 	}
 
-	private void Start()
+	public void Start()
 	{
 		maxHp = hp;
 		nameField.text = name;

@@ -17,12 +17,12 @@ public class FallBlock : MonoBehaviour
 
 	private bool falling;
 
-	private void Awake()
+	public void Awake()
 	{
 		startPos = base.transform.position;
 	}
 
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
 	{
 		if (!done && other.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{
@@ -32,12 +32,12 @@ public class FallBlock : MonoBehaviour
 		}
 	}
 
-	private void StartFall()
+	public void StartFall()
 	{
 		falling = true;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (falling)
 		{

@@ -4,12 +4,12 @@ public class Wind : MonoBehaviour
 {
 	private AudioSource wind;
 
-	private void Awake()
+	public void Awake()
 	{
 		wind = GetComponent<AudioSource>();
 	}
 
-	private void Update()
+	public void Update()
 	{
 		float value = PlayerMovement.Instance.GetVelocity().magnitude / 60f;
 		value = Mathf.Clamp(value, 0f, 0.85f);

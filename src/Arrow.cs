@@ -14,7 +14,7 @@ public class Arrow : MonoBehaviour
 
 	private bool done;
 
-	private void Awake()
+	public void Awake()
 	{
 		collider = GetComponent<Collider>();
 		rb = GetComponent<Rigidbody>();
@@ -22,17 +22,17 @@ public class Arrow : MonoBehaviour
 		Invoke("ActivateCollider", 0.25f);
 	}
 
-	private void ActivateCollider()
+	public void ActivateCollider()
 	{
 		collider.enabled = true;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		base.transform.rotation = Quaternion.Lerp(base.transform.rotation, Quaternion.LookRotation(rb.velocity), Time.deltaTime * 5f);
 	}
 
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
 	{
 		if (done)
 		{

@@ -8,7 +8,7 @@ public abstract class Powerup : MonoBehaviour, IPowerup
 
 	private Vector3 size;
 
-	private void Awake()
+	public void Awake()
 	{
 		collider = GetComponent<Collider>();
 		collider.enabled = false;
@@ -17,14 +17,14 @@ public abstract class Powerup : MonoBehaviour, IPowerup
 		base.transform.localScale = Vector3.zero;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		base.transform.localScale = Vector3.Lerp(base.transform.localScale, size, Time.deltaTime * 1.5f);
 	}
 
 	public abstract void Activate();
 
-	private void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{
@@ -38,7 +38,7 @@ public abstract class Powerup : MonoBehaviour, IPowerup
 		}
 	}
 
-	private void EnableCollider()
+	public void EnableCollider()
 	{
 		collider.enabled = true;
 	}

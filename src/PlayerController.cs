@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
 	[Range(20f, 75f)]
 	public float LaunchAngle = 45f;
 
-	private void Awake()
+	public void Awake()
 	{
 		player = GetComponent<Player>();
 		ikController = GetComponent<RigidEnemy>();
@@ -48,12 +48,12 @@ public class PlayerController : MonoBehaviour
 		Invoke("GetReadyToAttack", UnityEngine.Random.Range(1f, 2f));
 	}
 
-	private void Start()
+	public void Start()
 	{
 		target = PlayerMovement.Instance.transform;
 	}
 
-	private void FixedUpdate()
+	public void FixedUpdate()
 	{
 		if (player.hp < 1 || ikController.state != RigidEnemy.EnemyState.active)
 		{
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
 		AttackLogic();
 	}
 
-	private void LiftArms()
+	public void LiftArms()
 	{
 		Rigidbody[] array = armsRb;
 		for (int i = 0; i < array.Length; i++)
@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	private void StopAttacking()
+	public void StopAttacking()
 	{
 		attacking = false;
 	}
@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	private void GetReadyToAttack()
+	public void GetReadyToAttack()
 	{
 		readyToAttack = true;
 	}

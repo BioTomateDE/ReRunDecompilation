@@ -26,7 +26,7 @@ public class SinglePlayer : MonoBehaviour
 
 	private float oldDrag;
 
-	private void Start()
+	public void Start()
 	{
 		Instance = this;
 		if ((bool)PlayerMovement.Instance)
@@ -35,7 +35,7 @@ public class SinglePlayer : MonoBehaviour
 		}
 	}
 
-	private void Update()
+	public void Update()
 	{
 		DrawGrabbing();
 	}
@@ -44,7 +44,7 @@ public class SinglePlayer : MonoBehaviour
 	{
 	}
 
-	private void FindNewGrabLerp()
+	public void FindNewGrabLerp()
 	{
 		myGrabPoint = Vector3.Lerp(myGrabPoint, objectGrabbing.position, Time.deltaTime * 45f);
 		myHandPoint = Vector3.Lerp(myHandPoint, grabJoint.connectedAnchor, Time.deltaTime * 45f);
@@ -52,7 +52,7 @@ public class SinglePlayer : MonoBehaviour
 		grabLr.SetPosition(1, myHandPoint);
 	}
 
-	private void HoldGrab()
+	public void HoldGrab()
 	{
 		grabJoint.connectedAnchor = playerCam.transform.position + playerCam.transform.forward * 6.5f;
 		grabLr.startWidth = 0.05f;

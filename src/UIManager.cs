@@ -7,12 +7,12 @@ public class UIManager : MonoBehaviour
 
 	public static UIManager Instance;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (Input.GetButtonDown("Cancel"))
 		{

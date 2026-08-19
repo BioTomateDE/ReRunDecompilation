@@ -4,7 +4,7 @@ public class Managers : MonoBehaviour
 {
 	public static Managers Instance;
 
-	private void Awake()
+	public void Awake()
 	{
 		if (Instance != null)
 		{

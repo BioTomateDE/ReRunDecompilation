@@ -14,7 +14,7 @@ public class RandomSfx : MonoBehaviour
 
 	public bool dontPlayOnAwake;
 
-	private void Awake()
+	public void Awake()
 	{
 		s = GetComponent<AudioSource>();
 		if (!dontPlayOnAwake)

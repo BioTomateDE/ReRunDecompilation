@@ -4,17 +4,17 @@ public class PickupSword : MonoBehaviour
 {
 	private bool ready;
 
-	private void Awake()
+	public void Awake()
 	{
 		Invoke("GetReady", 0.5f);
 	}
 
-	private void GetReady()
+	public void GetReady()
 	{
 		ready = true;
 	}
 
-	private void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other)
 	{
 		if (ready && other.gameObject.layer == LayerMask.NameToLayer("Player") && !Sword.Instance.pickedUp)
 		{
@@ -23,7 +23,7 @@ public class PickupSword : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerStay(Collider other)
+	public void OnTriggerStay(Collider other)
 	{
 		if (ready && other.gameObject.layer == LayerMask.NameToLayer("Player") && !Sword.Instance.pickedUp)
 		{

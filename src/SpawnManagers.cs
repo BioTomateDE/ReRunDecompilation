@@ -4,7 +4,7 @@ public class SpawnManagers : MonoBehaviour
 {
 	public GameObject managers;
 
-	private void Awake()
+	public void Awake()
 	{
 		if (!Managers.Instance)
 		{
@@ -17,7 +17,7 @@ public class SpawnManagers : MonoBehaviour
 		Object.Destroy(base.gameObject);
 	}
 
-	private void Start()
+	public void Start()
 	{
 	}
 }

@@ -12,14 +12,14 @@ public class SpikeTrap : MonoBehaviour
 
 	private bool ready = true;
 
-	private void Awake()
+	public void Awake()
 	{
 		outPos = base.transform.position;
 		restPos = outPos + Vector3.down;
 		spikes.position = restPos;
 	}
 
-	private void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other)
 	{
 		if (ready)
 		{
@@ -30,7 +30,7 @@ public class SpikeTrap : MonoBehaviour
 		}
 	}
 
-	private void ResetSpikes()
+	public void ResetSpikes()
 	{
 		ready = true;
 		spikes.position = restPos;

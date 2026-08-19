@@ -8,12 +8,12 @@ public class AlideAudio : MonoBehaviour
 
 	public AudioSource startSlideSfx;
 
-	private void Awake()
+	public void Awake()
 	{
 		sfx = GetComponent<AudioSource>();
 	}
 
-	private void Update()
+	public void Update()
 	{
 		float b = 0f;
 		if (player.grounded && player.IsCrouching())

@@ -6,17 +6,17 @@ public class Bullet : MonoBehaviour
 
 	public GameObject bulletHitFx;
 
-	private void Start()
+	public void Start()
 	{
 		Invoke("DestroySelf", 2f);
 	}
 
-	private void DestroySelf()
+	public void DestroySelf()
 	{
 		Object.Destroy(base.gameObject);
 	}
 
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
 	{
 		int layer = other.gameObject.layer;
 		if (layer == LayerMask.NameToLayer("Enemy"))

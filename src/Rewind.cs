@@ -33,7 +33,7 @@ public class Rewind : MonoBehaviour
 
 	private float t;
 
-	private void Awake()
+	public void Awake()
 	{
 		bufferSize = (int)(1f / Time.fixedDeltaTime) * seconds;
 		lr.positionCount = bufferSize;
@@ -47,7 +47,7 @@ public class Rewind : MonoBehaviour
 		tick = bufferSize;
 	}
 
-	private void FixedUpdate()
+	public void FixedUpdate()
 	{
 		RewindObject rewindObject = new RewindObject(base.transform.position, rb.velocity);
 		playerHistory[tick % bufferSize] = rewindObject;
@@ -63,7 +63,7 @@ public class Rewind : MonoBehaviour
 		}
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.R))
 		{

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ChildPlayer : MonoBehaviour
 {
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{
@@ -10,7 +10,7 @@ public class ChildPlayer : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionExit(Collision other)
+	public void OnCollisionExit(Collision other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{

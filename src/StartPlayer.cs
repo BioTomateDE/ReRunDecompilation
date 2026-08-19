@@ -4,7 +4,7 @@ public class StartPlayer : MonoBehaviour
 {
 	public bool spawnWeapon;
 
-	private void Start()
+	public void Start()
 	{
 		for (int num = base.transform.childCount - 1; num >= 0; num--)
 		{

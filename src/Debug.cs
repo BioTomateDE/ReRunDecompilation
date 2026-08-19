@@ -29,12 +29,12 @@ public class Debug : MonoBehaviour
 
 	private bool previousVisible;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		Fps();
 		if (Input.GetKeyDown(KeyCode.Tab))

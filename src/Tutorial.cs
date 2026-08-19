@@ -7,7 +7,7 @@ public class Tutorial : MonoBehaviour
 
 	public static Tutorial Instance;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 	}

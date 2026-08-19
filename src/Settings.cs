@@ -32,7 +32,7 @@ public class Settings : MonoBehaviour
 
 	public Image graphicsBtn;
 
-	private void Start()
+	public void Start()
 	{
 		sensitivity = SaveManager.Instance.state.sensitivity;
 		volume = SaveManager.Instance.state.volume;

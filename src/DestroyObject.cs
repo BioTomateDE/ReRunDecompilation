@@ -4,12 +4,12 @@ public class DestroyObject : MonoBehaviour
 {
 	public float time = 2f;
 
-	private void Start()
+	public void Start()
 	{
 		Invoke("DestroySelf", time);
 	}
 
-	private void DestroySelf()
+	public void DestroySelf()
 	{
 		Object.Destroy(base.gameObject);
 	}

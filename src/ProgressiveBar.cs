@@ -19,13 +19,13 @@ public class ProgressiveBar : MonoBehaviour
 
 	private Vector3 desiredPopScale;
 
-	private void Awake()
+	public void Awake()
 	{
 		defaultScale = currentBar.transform.localScale;
 		desiredScale = defaultScale;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		currentBar.transform.localScale = Vector3.Lerp(currentBar.transform.localScale, desiredScale, Time.unscaledDeltaTime * (float)barSpeed);
 		if (popOut)

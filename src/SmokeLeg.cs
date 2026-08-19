@@ -8,7 +8,7 @@ public class SmokeLeg : MonoBehaviour
 
 	private bool ready = true;
 
-	private void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other)
 	{
 		if (ready && other.gameObject.layer == LayerMask.NameToLayer("Ground"))
 		{
@@ -18,7 +18,7 @@ public class SmokeLeg : MonoBehaviour
 		}
 	}
 
-	private void GetReady()
+	public void GetReady()
 	{
 		ready = true;
 	}

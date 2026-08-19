@@ -31,7 +31,7 @@ public class IkEnemy : MonoBehaviour
 
 	public float upAmount = 2f;
 
-	private void Start()
+	public void Start()
 	{
 		rigidEnemy = GetComponent<RigidEnemy>();
 		legTargets = new Transform[legs.Length];
@@ -50,7 +50,7 @@ public class IkEnemy : MonoBehaviour
 		InvokeRepeating("SlowUpdate", 1f, 1f);
 	}
 
-	private void Update()
+	public void Update()
 	{
 		currentVelocity = rigidEnemy.GetVelocity() * thresholdDistance;
 		UpdateLegTargets();
@@ -58,7 +58,7 @@ public class IkEnemy : MonoBehaviour
 		LerpLegs();
 	}
 
-	private void SlowUpdate()
+	public void SlowUpdate()
 	{
 		UpdateCurrentLegPositions(thresholdDistance * 0.2f);
 	}
@@ -129,7 +129,7 @@ public class IkEnemy : MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmos()
+	public void OnDrawGizmos()
 	{
 	}
 

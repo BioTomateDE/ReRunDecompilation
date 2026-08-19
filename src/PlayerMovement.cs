@@ -128,14 +128,14 @@ public class PlayerMovement : MonoBehaviour
 
 	public static PlayerMovement Instance { get; private set; }
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		rb = GetComponent<Rigidbody>();
 		playerHeight = GetComponent<CapsuleCollider>().bounds.size.y;
 	}
 
-	private void Start()
+	public void Start()
 	{
 		playerScale = base.transform.localScale;
 		playerCollider = GetComponent<Collider>();
@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
 		CameraShake();
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (!dead)
 		{
@@ -496,7 +496,7 @@ public class PlayerMovement : MonoBehaviour
 		return v.y == -1f;
 	}
 
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
 	{
 		int layer = other.gameObject.layer;
 		Vector3 normal = other.contacts[0].normal;
@@ -534,7 +534,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionStay(Collision other)
+	public void OnCollisionStay(Collision other)
 	{
 		int layer = other.gameObject.layer;
 		if ((int)whatIsGround != ((int)whatIsGround | (1 << layer)))

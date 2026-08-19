@@ -11,7 +11,7 @@ public class Timer : MonoBehaviour
 
 	public static Timer Instance { get; set; }
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		text = GetComponent<TextMeshProUGUI>();
@@ -25,7 +25,7 @@ public class Timer : MonoBehaviour
 		timer = 0f;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (GameManager.Instance.playing && !stop)
 		{

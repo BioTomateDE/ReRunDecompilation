@@ -24,7 +24,7 @@ namespace Audio
 
 		public static AudioManager Instance { get; set; }
 
-		private void Awake()
+		public void Awake()
 		{
 			Instance = this;
 			Sound[] array = sounds;
@@ -69,7 +69,7 @@ namespace Audio
 			}
 		}
 
-		private void Update()
+		public void Update()
 		{
 		}
 

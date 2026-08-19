@@ -6,7 +6,7 @@ public class GenerateClouds : MonoBehaviour
 
 	private int n = 100;
 
-	private void Start()
+	public void Start()
 	{
 		MakeClouds();
 	}

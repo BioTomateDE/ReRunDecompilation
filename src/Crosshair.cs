@@ -14,7 +14,7 @@ public class Crosshair : MonoBehaviour
 
 	public static Crosshair Instance;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 	}

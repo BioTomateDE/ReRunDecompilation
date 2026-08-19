@@ -10,7 +10,7 @@ public class CheckIfEnemiesDead : MonoBehaviour
 
 	private bool done;
 
-	private void Update()
+	public void Update()
 	{
 		if (done)
 		{
@@ -32,7 +32,7 @@ public class CheckIfEnemiesDead : MonoBehaviour
 		}
 	}
 
-	private void Activate()
+	public void Activate()
 	{
 		Manipulate[] array = actions;
 		for (int i = 0; i < array.Length; i++)

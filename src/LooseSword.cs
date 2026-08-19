@@ -12,13 +12,13 @@ public class LooseSword : MonoBehaviour
 
 	public bool player;
 
-	private void Awake()
+	public void Awake()
 	{
 		rb = GetComponent<Rigidbody>();
 		collider = GetComponent<Collider>();
 	}
 
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
 	{
 		if (!ready)
 		{
@@ -51,7 +51,7 @@ public class LooseSword : MonoBehaviour
 		player = false;
 	}
 
-	private void GetReady()
+	public void GetReady()
 	{
 		ready = true;
 		collider.enabled = true;

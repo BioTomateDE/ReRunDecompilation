@@ -25,7 +25,7 @@ public class Sword : MonoBehaviour
 
 	private bool readyToThrow = true;
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		animator = GetComponent<Animator>();
@@ -100,7 +100,7 @@ public class Sword : MonoBehaviour
 		}
 	}
 
-	private void GetReadyToThrow()
+	public void GetReadyToThrow()
 	{
 		readyToThrow = true;
 	}

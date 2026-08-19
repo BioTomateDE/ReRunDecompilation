@@ -12,12 +12,12 @@ public class PlayerAudio : MonoBehaviour
 
 	private float volVel;
 
-	private void Start()
+	public void Start()
 	{
 		rb = PlayerMovement.Instance.GetRb();
 	}
 
-	private void Update()
+	public void Update()
 	{
 	}
 }

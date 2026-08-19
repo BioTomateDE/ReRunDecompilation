@@ -23,7 +23,7 @@ public class RotateObject : Manipulate
 
 	public float outT;
 
-	private void Awake()
+	public void Awake()
 	{
 		sfx = GetComponent<AudioSource>();
 		startRotation = base.transform.rotation;
@@ -43,7 +43,7 @@ public class RotateObject : Manipulate
 		}
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (active)
 		{

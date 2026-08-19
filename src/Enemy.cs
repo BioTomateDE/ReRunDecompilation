@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
 	public FastIKFabric ik;
 
-	private void Start()
+	public void Start()
 	{
 		target = PlayerMovement.Instance.transform;
 		ReportToGameManager();
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 		GameManager.Instance.AddEnemy(base.gameObject);
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (!GameManager.Instance.isRewinding && (bool)target)
 		{

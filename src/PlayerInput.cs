@@ -39,7 +39,7 @@ public class PlayerInput : MonoBehaviour
 
 	public static PlayerInput Instance { get; set; }
 
-	private void Awake()
+	public void Awake()
 	{
 		Instance = this;
 		playerMovement = (PlayerMovement)GetComponent("PlayerMovement");
@@ -53,7 +53,7 @@ public class PlayerInput : MonoBehaviour
 		xRotation = x;
 	}
 
-	private void Update()
+	public void Update()
 	{
 		if (active && !GameManager.Instance.playerDead && !GameManager.Instance.paused && GameManager.Instance.playing && (!Debug.Instance || !Debug.Instance.IsConsoleOpen()))
 		{
@@ -62,7 +62,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
-	private void FixedUpdate()
+	public void FixedUpdate()
 	{
 		if (active && !GameManager.Instance.isRewinding)
 		{
