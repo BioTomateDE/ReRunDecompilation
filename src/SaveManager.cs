@@ -4,52 +4,52 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
-	public PlayerSave state;
+    public PlayerSave state;
 
-	public static SaveManager Instance { get; set; }
+    public static SaveManager Instance { get; set; }
 
-	public void Awake()
-	{
-		Instance = this;
-		Load();
-	}
+    public void Awake()
+    {
+        Instance = this;
+        Load();
+    }
 
-	public void Save()
-	{
-		PlayerPrefs.SetString("save", Serialize(state));
-	}
+    public void Save()
+    {
+        PlayerPrefs.SetString("save", Serialize(state));
+    }
 
-	public void Load()
-	{
-		if (PlayerPrefs.HasKey("save"))
-		{
-			state = Deserialize<PlayerSave>(PlayerPrefs.GetString("save"));
-		}
-		else
-		{
-			NewSave();
-		}
-	}
+    public void Load()
+    {
+        if (PlayerPrefs.HasKey("save"))
+        {
+            state = Deserialize<PlayerSave>(PlayerPrefs.GetString("save"));
+        }
+        else
+        {
+            NewSave();
+        }
+    }
 
-	public void NewSave()
-	{
-		state = new PlayerSave();
-		Save();
-		MonoBehaviour.print("Creating new save file");
-	}
+    public void NewSave()
+    {
+        state = new PlayerSave();
+        Save();
+        MonoBehaviour.print("Creating new save file");
+    }
 
-	public string Serialize<T>(T toSerialize)
-	{
-		XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-		StringWriter stringWriter = new StringWriter();
-		xmlSerializer.Serialize(stringWriter, toSerialize);
-		return stringWriter.ToString();
-	}
+    public string Serialize<T>(T toSerialize)
+    {
+        XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+        StringWriter stringWriter = new StringWriter();
+        xmlSerializer.Serialize(stringWriter, toSerialize);
+        return stringWriter.ToString();
+    }
 
-	public T Deserialize<T>(string toDeserialize)
-	{
-		XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-		StringReader textReader = new StringReader(toDeserialize);
-		return (T)xmlSerializer.Deserialize(textReader);
-	}
+    public T Deserialize<T>(string toDeserialize)
+    {
+        XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+        StringReader textReader = new StringReader(toDeserialize);
+        return (T)xmlSerializer.Deserialize(textReader);
+    }
 }

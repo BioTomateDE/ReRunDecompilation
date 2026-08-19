@@ -1,4 +1,4 @@
 public interface IPowerup
 {
-	void Activate();
+    void Activate();
 }

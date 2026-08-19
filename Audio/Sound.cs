@@ -3,24 +3,24 @@ using UnityEngine;
 
 namespace Audio
 {
-	[Serializable]
-	public class Sound
-	{
-		public string name;
+    [Serializable]
+    public class Sound
+    {
+        public string name;
 
-		public AudioClip clip;
+        public AudioClip clip;
 
-		[Range(0f, 2f)]
-		public float volume;
+        [Range(0f, 2f)]
+        public float volume;
 
-		[Range(0f, 2f)]
-		public float pitch;
+        [Range(0f, 2f)]
+        public float pitch;
 
-		public bool loop;
+        public bool loop;
 
-		public bool bypass;
+        public bool bypass;
 
-		[HideInInspector]
-		public AudioSource source;
-	}
+        [HideInInspector]
+        public AudioSource source;
+    }
 }

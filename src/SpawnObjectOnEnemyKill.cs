@@ -2,36 +2,36 @@ using UnityEngine;
 
 public class SpawnObjectOnEnemyKill : MonoBehaviour
 {
-	private Player player;
+    private Player player;
 
-	public GameObject spawnObject;
+    public GameObject spawnObject;
 
-	private Vector3 size;
+    private Vector3 size;
 
-	public void Awake()
-	{
-		player = GetComponent<Player>();
-		if (!spawnObject)
-		{
-			Object.Destroy(this);
-		}
-		else
-		{
-			spawnObject.SetActive(value: false);
-		}
-	}
+    public void Awake()
+    {
+        player = GetComponent<Player>();
+        if (!spawnObject)
+        {
+            Object.Destroy(this);
+        }
+        else
+        {
+            spawnObject.SetActive(value: false);
+        }
+    }
 
-	public void Update()
-	{
-		if (player.hp <= 0)
-		{
-			ActivateObject();
-			Object.Destroy(this);
-		}
-	}
+    public void Update()
+    {
+        if (player.hp <= 0)
+        {
+            ActivateObject();
+            Object.Destroy(this);
+        }
+    }
 
-	private void ActivateObject()
-	{
-		spawnObject.SetActive(value: true);
-	}
+    private void ActivateObject()
+    {
+        spawnObject.SetActive(value: true);
+    }
 }

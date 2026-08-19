@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
-	public TextMeshProUGUI text;
+    public TextMeshProUGUI text;
 
-	public static Tutorial Instance;
+    public static Tutorial Instance;
 
-	public void Awake()
-	{
-		Instance = this;
-	}
+    public void Awake()
+    {
+        Instance = this;
+    }
 
-	public void AddText(string text)
-	{
-		this.text.text = text;
-	}
+    public void AddText(string text)
+    {
+        this.text.text = text;
+    }
 }

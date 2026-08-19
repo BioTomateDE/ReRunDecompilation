@@ -2,32 +2,32 @@ using UnityEngine;
 
 public class MusicController : MonoBehaviour
 {
-	public AudioSource music;
+    public AudioSource music;
 
-	private AudioLowPassFilter lowpass;
+    private AudioLowPassFilter lowpass;
 
-	private float desiredFreq = 440f;
+    private float desiredFreq = 440f;
 
-	public static MusicController Instance;
+    public static MusicController Instance;
 
-	public void Awake()
-	{
-		Instance = this;
-		lowpass = GetComponent<AudioLowPassFilter>();
-	}
+    public void Awake()
+    {
+        Instance = this;
+        lowpass = GetComponent<AudioLowPassFilter>();
+    }
 
-	public void SetFreq(float f)
-	{
-		desiredFreq = 22000f * f;
-	}
+    public void SetFreq(float f)
+    {
+        desiredFreq = 22000f * f;
+    }
 
-	public void Update()
-	{
-		lowpass.cutoffFrequency = Mathf.Lerp(lowpass.cutoffFrequency, desiredFreq, Time.deltaTime * 2f);
-	}
+    public void Update()
+    {
+        lowpass.cutoffFrequency = Mathf.Lerp(lowpass.cutoffFrequency, desiredFreq, Time.deltaTime * 2f);
+    }
 
-	public void UpdateMusic(float f)
-	{
-		music.volume = f;
-	}
+    public void UpdateMusic(float f)
+    {
+        music.volume = f;
+    }
 }

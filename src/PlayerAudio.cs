@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
 {
-	private Rigidbody rb;
+    private Rigidbody rb;
 
-	public AudioSource wind;
+    public AudioSource wind;
 
-	public AudioSource foley;
+    public AudioSource foley;
 
-	private float currentVol;
+    private float currentVol;
 
-	private float volVel;
+    private float volVel;
 
-	public void Start()
-	{
-		rb = PlayerMovement.Instance.GetRb();
-	}
+    public void Start()
+    {
+        rb = PlayerMovement.Instance.GetRb();
+    }
 
-	public void Update()
-	{
-	}
+    public void Update()
+    {
+    }
 }
