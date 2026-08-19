@@ -6,10 +6,9 @@ public class SpawnOnTrigger : MonoBehaviour
 
     public void Start()
     {
-        GameObject[] array = toSpawn;
-        for (int i = 0; i < array.Length; i++)
+        for (int i = 0; i < toSpawn.Length; i++)
         {
-            array[i].SetActive(value: false);
+            toSpawn[i].SetActive(false);
         }
     }
 
@@ -18,10 +17,9 @@ public class SpawnOnTrigger : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Object.Destroy(base.gameObject);
-            GameObject[] array = toSpawn;
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < toSpawn.Length; i++)
             {
-                array[i].SetActive(value: true);
+                toSpawn[i].SetActive(true);
             }
         }
     }

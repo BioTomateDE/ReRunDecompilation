@@ -20,9 +20,10 @@ public class Weapon : MonoBehaviour
         {
             return false;
         }
-        Vector3 normalized = (hitPoint - gunTip.position).normalized;
+        Vector3 _vector = (hitPoint - gunTip.position).normalized;
         Object.Instantiate(muzzle, gunTip.position, Quaternion.identity);
-        Object.Instantiate(bullet, gunTip.position, Quaternion.identity).GetComponent<Rigidbody>().AddForce(normalized * force);
+        GameObject _bullet = Object.Instantiate(bullet, gunTip.position, Quaternion.identity);
+        _bullet.GetComponent<Rigidbody>().AddForce(_vector * force);
         readyToShoot = false;
         Invoke("GetReady", cooldown);
         return true;

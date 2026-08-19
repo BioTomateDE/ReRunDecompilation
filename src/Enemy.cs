@@ -27,12 +27,12 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
-        if (!GameManager.Instance.isRewinding && (bool)target)
+        if (!GameManager.Instance.isRewinding && target)
         {
-            Vector3 vector = target.transform.position - base.transform.position;
-            if (Vector3.Angle(base.transform.forward, vector) > 10f)
+            Vector3 _vector = target.transform.position - base.transform.position;
+            if (Vector3.Angle(base.transform.forward, _vector) > 10f)
             {
-                hips.transform.rotation = Quaternion.Slerp(hips.transform.rotation, Quaternion.LookRotation(vector), Time.deltaTime * speed);
+                hips.transform.rotation = Quaternion.Slerp(hips.transform.rotation, Quaternion.LookRotation(_vector), Time.deltaTime * speed);
             }
             hips.transform.rotation = Quaternion.Euler(0f, hips.transform.rotation.eulerAngles.y, 0f);
             ShootLogic();
@@ -41,8 +41,8 @@ public class Enemy : MonoBehaviour
 
     private void ShootLogic()
     {
-        Vector3 normalized = (target.position - gun.transform.position).normalized;
-        if (Physics.Raycast(gun.transform.position, normalized, out var hitInfo, 100f) && hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
+        Vector3 _vector = target.position - gun.transform.position;
+        if (Physics.Raycast(gun.transform.position, _vector.normalized, out var hitInfo, 100f) && hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             gun.cooldown = Random.Range(0.6f, 2f);
             gun.Shoot(hitInfo.point);

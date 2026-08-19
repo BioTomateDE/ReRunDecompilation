@@ -33,11 +33,11 @@ public class PlayerStatus : MonoBehaviour
         hp = maxHp;
     }
 
-    public void Damage(int damage)
+    public void Damage(int _damage)
     {
         if (hp > 0 && GameManager.Instance.playing)
         {
-            hp -= damage;
+            hp -= _damage;
             vignette.intensity.value *= 1.5f;
             colorGrading.colorFilter.value = Color.red;
             healing = false;
@@ -63,11 +63,11 @@ public class PlayerStatus : MonoBehaviour
 
     public void Update()
     {
-        float value = 1f - ((float)hp / (float)maxHp);
-        value = Mathf.Clamp(value, 0f, 1f);
-        vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, defaultVignette + (value * 0.25f), Time.deltaTime * speed);
-        colorGrading.contrast.value = Mathf.Lerp(colorGrading.contrast.value, defaultContrast + (value * 40f), Time.deltaTime * speed);
-        colorGrading.colorFilter.value = Color.Lerp(colorGrading.colorFilter.value, new Color(1f, 1f - (value * 0.3f), 1f - (value * 0.3f)), Time.deltaTime * speed * 2f);
+        float _remaining = 1f - ((float)hp / maxHp);
+        _remaining = Mathf.Clamp(_remaining, 0f, 1f);
+        vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, defaultVignette + (_remaining * 0.25f), Time.deltaTime * speed);
+        colorGrading.contrast.value = Mathf.Lerp(colorGrading.contrast.value, defaultContrast + (_remaining * 40f), Time.deltaTime * speed);
+        colorGrading.colorFilter.value = Color.Lerp(colorGrading.colorFilter.value, new Color(1f, 1f - (_remaining * 0.3f), 1f - (_remaining * 0.3f)), Time.deltaTime * speed * 2f);
         if (healing && hp < maxHp && hp > 0)
         {
             hp++;
@@ -79,7 +79,7 @@ public class PlayerStatus : MonoBehaviour
         GameManager.Instance.PlayerDied();
         PlayerMovement.Instance.GetRb().isKinematic = true;
         PlayerMovement.Instance.GetRb().velocity = Vector3.zero;
-        PlayerMovement.Instance.SetInput(Vector2.zero, crouching: false, jumping: false);
+        PlayerMovement.Instance.SetInput(Vector2.zero, _crouching: false, _jumping: false);
         if (Sword.Instance.pickedUp)
         {
             Sword.Instance.RemoveSword();

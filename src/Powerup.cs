@@ -31,7 +31,7 @@ public abstract class Powerup : MonoBehaviour, IPowerup
             Activate();
             Object.Destroy(base.gameObject);
             GameManager.Instance.StartRewind();
-            if ((bool)destroyFx)
+            if (destroyFx)
             {
                 Object.Instantiate(destroyFx, base.transform.position, base.transform.rotation);
             }

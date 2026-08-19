@@ -16,9 +16,9 @@ public class MusicController : MonoBehaviour
         lowpass = GetComponent<AudioLowPassFilter>();
     }
 
-    public void SetFreq(float f)
+    public void SetFreq(float _freq)
     {
-        desiredFreq = 22000f * f;
+        desiredFreq = 22000f * _freq;
     }
 
     public void Update()
@@ -26,8 +26,8 @@ public class MusicController : MonoBehaviour
         lowpass.cutoffFrequency = Mathf.Lerp(lowpass.cutoffFrequency, desiredFreq, Time.deltaTime * 2f);
     }
 
-    public void UpdateMusic(float f)
+    public void UpdateMusic(float _volume)
     {
-        music.volume = f;
+        music.volume = _volume;
     }
 }

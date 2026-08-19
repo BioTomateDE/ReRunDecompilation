@@ -58,12 +58,12 @@ public class GameState : MonoBehaviour
         UpdateSettings();
     }
 
-    public void SetGraphics(bool b)
+    public void SetGraphics(bool _pretty)
     {
-        graphics = b;
-        ambientOcclusion.enabled.value = b;
-        lens.enabled.value = b;
-        bloom.enabled.value = b;
+        graphics = _pretty;
+        ambientOcclusion.enabled.value = _pretty;
+        lens.enabled.value = _pretty;
+        bloom.enabled.value = _pretty;
         if (!graphics)
         {
             QualitySettings.SetQualityLevel(0);
@@ -72,18 +72,18 @@ public class GameState : MonoBehaviour
         {
             QualitySettings.SetQualityLevel(5);
         }
-        SaveManager.Instance.state.graphics = b;
+        SaveManager.Instance.state.graphics = _pretty;
         SaveManager.Instance.Save();
     }
 
-    public void SetBlur(bool b)
+    public void SetBlur(bool _enabled)
     {
     }
 
-    public void SetShake(bool b)
+    public void SetShake(bool _enabled)
     {
-        shake = b;
-        if (b)
+        shake = _enabled;
+        if (_enabled)
         {
             cameraShake = 1f;
         }
@@ -91,64 +91,65 @@ public class GameState : MonoBehaviour
         {
             cameraShake = 0f;
         }
-        SaveManager.Instance.state.cameraShake = b;
+        SaveManager.Instance.state.cameraShake = _enabled;
         SaveManager.Instance.Save();
     }
 
-    public void SetSlowmo(bool b)
+    public void SetSlowmo(bool _enabled)
     {
-        slowmo = b;
-        SaveManager.Instance.state.slowmo = b;
+        slowmo = _enabled;
+        SaveManager.Instance.state.slowmo = _enabled;
         SaveManager.Instance.Save();
     }
 
-    public void SetSensitivity(float s)
+    public void SetSensitivity(float _rawSens)
     {
-        float num = (sensitivity = Mathf.Clamp(s, 0f, 5f));
-        if ((bool)PlayerInput.Instance)
+        sensitivity = Mathf.Clamp(_rawSens, 0f, 5f);
+        if (PlayerInput.Instance)
         {
             PlayerInput.Instance.UpdateSensitivity(sensitivity);
         }
-        SaveManager.Instance.state.sensitivity = num;
+        SaveManager.Instance.state.sensitivity = sensitivity;
         SaveManager.Instance.Save();
     }
 
-    public void SetMusic(float s)
+    public void SetMusic(float _rawMusicVolume)
     {
-        float f = (music = Mathf.Clamp(s, 0f, 1f));
-        MusicController.Instance.UpdateMusic(f);
-        SaveManager.Instance.state.music = f;
+        music = Mathf.Clamp(_rawMusicVolume, 0f, 1f);
+        MusicController.Instance.UpdateMusic(music);
+        SaveManager.Instance.state.music = music;
         SaveManager.Instance.Save();
     }
 
-    public void SetVolume(float s)
+    public void SetVolume(float _rawVolume)
     {
-        float num = (AudioListener.volume = (volume = Mathf.Clamp(s, 0f, 1f)));
-        SaveManager.Instance.state.volume = num;
+        volume = Mathf.Clamp(_rawVolume, 0f, 1f);
+        AudioListener.volume = volume;
+        SaveManager.Instance.state.volume = volume;
         SaveManager.Instance.Save();
     }
 
     public void ApplySettings()
     {
         AudioListener.volume = volume;
-        if ((bool)PlayerInput.Instance)
+        if (PlayerInput.Instance)
         {
             PlayerInput.Instance.UpdateSensitivity(sensitivity);
         }
-        if ((bool)MoveCamera.Instance)
+        if (MoveCamera.Instance)
         {
             MoveCamera.Instance.UpdateFov(fov);
         }
     }
 
-    public void SetFov(float f)
+    public void SetFov(float _rawFov)
     {
-        float num = (fov = Mathf.Clamp(f, 50f, 150f));
-        if ((bool)MoveCamera.Instance)
+        fov = Mathf.Clamp(_rawFov, 50f, 150f);
+        if (MoveCamera.Instance)
         {
             MoveCamera.Instance.UpdateFov(fov);
         }
-        SaveManager.Instance.state.fov = num;
+        SaveManager.Instance.state.fov = fov;
         SaveManager.Instance.Save();
     }
 
@@ -164,33 +165,10 @@ public class GameState : MonoBehaviour
         SetSlowmo(slowmo);
     }
 
-    public bool GetGraphics()
-    {
-        return graphics;
-    }
-
-    public float GetSensitivity()
-    {
-        return sensitivity;
-    }
-
-    public float GetVolume()
-    {
-        return volume;
-    }
-
-    public float GetMusic()
-    {
-        return music;
-    }
-
-    public float GetFov()
-    {
-        return fov;
-    }
-
-    public bool GetMuted()
-    {
-        return muted;
-    }
+    public bool GetGraphics() => graphics;
+    public float GetSensitivity() => sensitivity;
+    public float GetVolume() => volume;
+    public float GetMusic() => music;
+    public float GetFov() => fov;
+    public bool GetMuted() => muted;
 }

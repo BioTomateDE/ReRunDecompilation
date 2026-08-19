@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     {
         maxHp = hp;
         nameField.text = name;
-        if ((bool)ikHand)
+        if (ikHand)
         {
             ikHand.Target = PlayerMovement.Instance.transform;
         }
@@ -65,10 +65,10 @@ public class Player : MonoBehaviour
             Kill();
         }
         healthBar.UpdateBar(hp, maxHp);
-        ParticleSystem component = Object.Instantiate(bloodFx, damagePos, Quaternion.identity).GetComponent<ParticleSystem>();
-        ParticleSystem.Burst burst = component.emission.GetBurst(0);
+        ParticleSystem _particleSystem = Object.Instantiate(bloodFx, damagePos, Quaternion.identity).GetComponent<ParticleSystem>();
+        ParticleSystem.Burst burst = _particleSystem.emission.GetBurst(0);
         burst.count = Mathf.Clamp(damage, 0, 50);
-        component.emission.SetBurst(0, burst);
+        _particleSystem.emission.SetBurst(0, burst);
     }
 
     private void Kill()
@@ -78,18 +78,18 @@ public class Player : MonoBehaviour
             killed = true;
             ikController.UpdateState(RigidEnemy.EnemyState.dead);
             Object.Destroy(damagePlayer);
-            Rigidbody component = ikController.torso.GetComponent<Rigidbody>();
+            Rigidbody _rigidbody = ikController.torso.GetComponent<Rigidbody>();
             if (!ikHand)
             {
-                GameObject obj = Object.Instantiate(sword, currentSword.position, currentSword.rotation);
-                obj.GetComponent<Rigidbody>().AddForce(Vector3.up * 4000f);
-                obj.GetComponent<LooseSword>().RemoveCollision();
+                GameObject _swordObject = Object.Instantiate(sword, currentSword.position, currentSword.rotation);
+                _swordObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 4000f);
+                _swordObject.GetComponent<LooseSword>().RemoveCollision();
                 Object.Destroy(currentSword.gameObject);
             }
-            if ((bool)ikHand)
+            if (ikHand)
             {
                 Object.Destroy(ikHand);
-                rightShoulder.AddComponent<HingeJoint>().connectedBody = component;
+                rightShoulder.AddComponent<HingeJoint>().connectedBody = _rigidbody;
                 rightHand.AddComponent<HingeJoint>().connectedBody = rightShoulder.GetComponent<Rigidbody>();
             }
             Object.Instantiate(killFx);
@@ -97,23 +97,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    public Rigidbody GetRb()
-    {
-        return rb;
-    }
-
-    public Transform GetRoot()
-    {
-        return ikController.root;
-    }
-
-    public Transform GetTorso()
-    {
-        return ikController.torso;
-    }
-
-    public Transform GetTarget()
-    {
-        return playerController.target;
-    }
+    public Rigidbody GetRb() => rb;
+    public Transform GetRoot() => ikController.root;
+    public Transform GetTorso() => ikController.torso;
+    public Transform GetTarget() => playerController.target;
 }

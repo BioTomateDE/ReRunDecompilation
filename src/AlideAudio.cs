@@ -15,13 +15,13 @@ public class AlideAudio : MonoBehaviour
 
     public void Update()
     {
-        float b = 0f;
+        float _magnitude = 0f;
         if (player.grounded && player.IsCrouching())
         {
-            b = PlayerMovement.Instance.GetVelocity().magnitude;
-            b = Mathf.Clamp(b * 0.0125f, 0f, 0.6f);
+            _magnitude = PlayerMovement.Instance.GetVelocity().magnitude;
+            _magnitude = Mathf.Clamp(_magnitude * 0.0125f, 0f, 0.6f);
         }
-        sfx.volume = Mathf.Lerp(sfx.volume, b, Time.deltaTime * 15f);
+        sfx.volume = Mathf.Lerp(sfx.volume, _magnitude, Time.deltaTime * 15f);
     }
 
     public void PlayStartSlide()

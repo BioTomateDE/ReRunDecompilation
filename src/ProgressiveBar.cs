@@ -27,17 +27,17 @@ public class ProgressiveBar : MonoBehaviour
 
     public void Update()
     {
-        currentBar.transform.localScale = Vector3.Lerp(currentBar.transform.localScale, desiredScale, Time.unscaledDeltaTime * (float)barSpeed);
+        currentBar.transform.localScale = Vector3.Lerp(currentBar.transform.localScale, desiredScale, Time.unscaledDeltaTime * barSpeed);
         if (popOut)
         {
-            base.transform.localScale = Vector3.Lerp(base.transform.localScale, Vector3.one * popScale, Time.unscaledDeltaTime * (float)barSpeed);
-            popScale = Mathf.Lerp(popScale, 1f, Time.unscaledDeltaTime * (float)barSpeed);
+            base.transform.localScale = Vector3.Lerp(base.transform.localScale, Vector3.one * popScale, Time.unscaledDeltaTime * barSpeed);
+            popScale = Mathf.Lerp(popScale, 1f, Time.unscaledDeltaTime * barSpeed);
         }
     }
 
-    public void UpdateBar(float current, float total)
+    public void UpdateBar(float _current, float _total)
     {
-        float num = current / total;
+        float num = _current / _total;
         desiredScale = new Vector3(num * defaultScale.x, defaultScale.y, defaultScale.z);
         if (popOut)
         {

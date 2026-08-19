@@ -39,15 +39,15 @@ public class Arrow : MonoBehaviour
             return;
         }
         done = true;
-        int layer = other.gameObject.layer;
-        if (layer == LayerMask.NameToLayer("Player"))
+        int _layer = other.gameObject.layer;
+        if (_layer == LayerMask.NameToLayer("Player"))
         {
             if (Sword.Instance.IsBlocking())
             {
-                Vector3 to = PlayerMovement.Instance.transform.position - base.transform.position;
-                float num = Vector3.Angle(PlayerMovement.Instance.orientation.forward, to);
-                MonoBehaviour.print("a: " + num);
-                if (num > 100f)
+                Vector3 _to = PlayerMovement.Instance.transform.position - base.transform.position;
+                float _angle = Vector3.Angle(PlayerMovement.Instance.orientation.forward, _to);
+                MonoBehaviour.print("a: " + _angle);
+                if (_angle > 100f)
                 {
                     Object.Instantiate(swordHit, base.transform.position, Quaternion.identity);
                     Object.Destroy(base.gameObject);
@@ -58,28 +58,28 @@ public class Arrow : MonoBehaviour
             PlayerStatus.Instance.Damage(90);
             Object.Destroy(base.gameObject);
         }
-        else if (layer == LayerMask.NameToLayer("Enemy"))
+        else if (_layer == LayerMask.NameToLayer("Enemy"))
         {
-            Player component = other.transform.root.GetComponent<Player>();
-            if ((bool)component)
+            Player _player = other.transform.root.GetComponent<Player>();
+            if (_player)
             {
-                component.Damage(100, base.transform.position);
+                _player.Damage(100, base.transform.position);
                 Object.Destroy(base.gameObject);
                 Object.Instantiate(blood, other.contacts[0].point, Quaternion.identity);
             }
         }
-        else if (layer == LayerMask.NameToLayer("Ground"))
+        else if (_layer == LayerMask.NameToLayer("Ground"))
         {
             GetComponent<Rigidbody>().isKinematic = true;
             Object.Destroy(base.transform.GetComponentInChildren<AudioSource>());
             Object.Destroy(this);
             base.gameObject.AddComponent<DestroyObject>().time = 5f;
             collider.enabled = false;
-            ParticleSystemRenderer component2 = Object.Instantiate(arrowHit, other.contacts[0].point, Quaternion.identity).GetComponent<ParticleSystemRenderer>();
-            Renderer component3 = other.gameObject.GetComponent<Renderer>();
-            if ((bool)component3)
+            ParticleSystemRenderer _particleSystem = Object.Instantiate(arrowHit, other.contacts[0].point, Quaternion.identity).GetComponent<ParticleSystemRenderer>();
+            Renderer _renderer = other.gameObject.GetComponent<Renderer>();
+            if (_renderer)
             {
-                component2.material = component3.material;
+                _particleSystem.material = _renderer.material;
             }
         }
         else

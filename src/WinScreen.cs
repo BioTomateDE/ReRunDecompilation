@@ -14,7 +14,7 @@ public class WinScreen : MonoBehaviour
     public void Awake()
     {
         Instance = this;
-        base.gameObject.SetActive(value: false);
+        base.gameObject.SetActive(false);
     }
 
     public void OnEnable()

@@ -35,20 +35,20 @@ public class Timer : MonoBehaviour
         }
     }
 
-    public static string GetFormattedTime(float f)
+    public static string GetFormattedTime(float _timeSec)
     {
-        if (f == 0f)
+        if (_timeSec == 0f)
         {
             return "nan";
         }
-        string arg = Mathf.Floor(f / 60f).ToString("00");
-        string arg2 = Mathf.Floor(f % 60f).ToString("00");
-        string text = (f * 1000f % 1000f).ToString("00");
-        if (text.Equals("100"))
+        string mm = Mathf.Floor(_timeSec / 60f).ToString("00");
+        string ss = Mathf.Floor(_timeSec % 60f).ToString("00");
+        string fff = (_timeSec * 1000f % 1000f).ToString("00");
+        if (fff.Equals("100"))
         {
-            text = "99";
+            fff = "99";
         }
-        return $"{arg}:{arg2}:{text}";
+        return $"{mm}:{ss}:{fff}";
     }
 
     public float GetTimer()

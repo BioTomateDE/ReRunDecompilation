@@ -12,15 +12,15 @@ public class Plank : MonoBehaviour
         }
         MonoBehaviour.print("yep");
         Transform[] componentsInChildren = GetComponentsInChildren<Transform>();
-        foreach (Transform transform in componentsInChildren)
+        foreach (Transform _transform in componentsInChildren)
         {
-            if (transform != base.transform)
+            if (_transform != base.transform)
             {
-                Rigidbody rigidbody = transform.gameObject.AddComponent<Rigidbody>();
-                rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
-                rigidbody.AddForce((-base.transform.forward * Random.Range(50, 750)) + (base.transform.right * Random.Range(50, 300)) + (base.transform.up * Random.Range(50, 400)));
-                transform.SetParent(null);
-                transform.gameObject.layer = LayerMask.NameToLayer("GroundOnly");
+                Rigidbody _rigidbody = _transform.gameObject.AddComponent<Rigidbody>();
+                _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+                _rigidbody.AddForce((-base.transform.forward * Random.Range(50, 750)) + (base.transform.right * Random.Range(50, 300)) + (base.transform.up * Random.Range(50, 400)));
+                _transform.SetParent(null);
+                _transform.gameObject.layer = LayerMask.NameToLayer("GroundOnly");
             }
         }
         Object.Instantiate(plankBreak, base.transform.position, plankBreak.transform.rotation);

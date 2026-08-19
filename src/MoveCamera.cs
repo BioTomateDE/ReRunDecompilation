@@ -41,7 +41,7 @@ public class MoveCamera : MonoBehaviour
         Instance = this;
         cam = base.transform.GetChild(0).GetComponent<Camera>();
         rb = PlayerMovement.Instance.GetRb();
-        if ((bool)GameState.Instance)
+        if (GameState.Instance)
         {
             GameState.Instance.ApplySettings();
         }
@@ -54,9 +54,9 @@ public class MoveCamera : MonoBehaviour
         base.transform.position = player.transform.position + bobOffset + desyncOffset + vaultOffset + offset;
         if (!cinematic)
         {
-            Vector3 cameraRot = playerInput.cameraRot;
-            cameraRot.x = Mathf.Clamp(cameraRot.x, -90f, 90f);
-            base.transform.rotation = Quaternion.Euler(cameraRot);
+            Vector3 _cameraRot = playerInput.cameraRot;
+            _cameraRot.x = Mathf.Clamp(_cameraRot.x, -90f, 90f);
+            base.transform.rotation = Quaternion.Euler(_cameraRot);
             desyncOffset = Vector3.Lerp(desyncOffset, Vector3.zero, Time.deltaTime * 15f);
             vaultOffset = Vector3.Slerp(vaultOffset, Vector3.zero, Time.deltaTime * 7f);
             if (PlayerMovement.Instance.IsCrouching())
@@ -68,28 +68,28 @@ public class MoveCamera : MonoBehaviour
                 desiredTilt = 0f;
             }
             tilt = Mathf.Lerp(tilt, desiredTilt, Time.deltaTime * 8f);
-            Vector3 eulerAngles = base.transform.rotation.eulerAngles;
-            eulerAngles.z = tilt;
-            base.transform.rotation = Quaternion.Euler(eulerAngles);
+            Vector3 _eulerAngles = base.transform.rotation.eulerAngles;
+            _eulerAngles.z = tilt;
+            base.transform.rotation = Quaternion.Euler(_eulerAngles);
         }
     }
 
     private void MoveGun()
     {
-        if ((bool)rb && !(Mathf.Abs(rb.velocity.magnitude) < 4f) && PlayerMovement.Instance.grounded)
+        if (rb && !(Mathf.Abs(rb.velocity.magnitude) < 4f) && PlayerMovement.Instance.grounded)
         {
             PlayerMovement.Instance.IsCrouching();
         }
     }
 
-    public void UpdateFov(float f)
+    public void UpdateFov(float _fov)
     {
-        mainCam.fieldOfView = f;
+        mainCam.fieldOfView = _fov;
     }
 
-    public void BobOnce(Vector3 bobDirection)
+    public void BobOnce(Vector3 _bobDirection)
     {
-        Vector3 vector = ClampVector(bobDirection * 0.15f, -3f, 3f);
+        Vector3 vector = ClampVector(_bobDirection * 0.15f, -3f, 3f);
         desiredBob = vector * bobMultiplier;
     }
 
@@ -99,7 +99,7 @@ public class MoveCamera : MonoBehaviour
         bobOffset = Vector3.Lerp(bobOffset, desiredBob, Time.deltaTime * bobSpeed);
     }
 
-    private Vector3 ClampVector(Vector3 vec, float min, float max)
+    private static Vector3 ClampVector(Vector3 vec, float min, float max)
     {
         return new Vector3(Mathf.Clamp(vec.x, min, max), Mathf.Clamp(vec.y, min, max), Mathf.Clamp(vec.z, min, max));
     }

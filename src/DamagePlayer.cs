@@ -31,8 +31,8 @@ public class DamagePlayer : MonoBehaviour
         CameraShaker.Instance.ShakeOnce(12f, 3f, 0.3f, 0.3f);
         if (Sword.Instance.IsBlocking())
         {
-            Vector3 to = PlayerMovement.Instance.transform.position - enemyTorso.position;
-            if (Vector3.Angle(PlayerMovement.Instance.orientation.forward, to) > 130f)
+            Vector3 _to = PlayerMovement.Instance.transform.position - enemyTorso.position;
+            if (Vector3.Angle(PlayerMovement.Instance.orientation.forward, _to) > 130f)
             {
                 Object.Instantiate(swordHit, swordTip.position, Quaternion.identity);
                 PPController.Instance.StartRewind();

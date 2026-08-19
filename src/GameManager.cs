@@ -64,14 +64,14 @@ public class GameManager : MonoBehaviour
 
     private void RestartEnemies()
     {
-        foreach (GameObject enemy in enemies)
+        foreach (GameObject _enemy in enemies)
         {
-            Object.Destroy(enemy);
+            Object.Destroy(_enemy);
         }
         enemies = new List<GameObject>();
-        foreach (Vector3 position in positions)
+        foreach (Vector3 _pos in positions)
         {
-            enemies.Add(Object.Instantiate(this.enemy, position, Quaternion.identity));
+            enemies.Add(Object.Instantiate(enemy, _pos, Quaternion.identity));
         }
         positions = new List<Vector3>();
     }
@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.HidePause();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        deathScreen.SetActive(value: true);
+        deathScreen.SetActive(true);
         playerDead = true;
         PlayerStatus.Instance.Damage(100);
         playing = false;
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         PlayerMovement.Instance.GetRb().useGravity = false;
         PlayerMovement.Instance.GetRb().velocity = Vector3.zero;
         PPController.Instance.StartRewind();
-        rewindSymbol.SetActive(value: true);
+        rewindSymbol.SetActive(true);
         RestartEnemies();
     }
 
@@ -126,10 +126,8 @@ public class GameManager : MonoBehaviour
         PlayerMovement.Instance.GetRb().useGravity = true;
         t = 1f;
         PPController.Instance.StopRewind();
-        rewindSymbol.SetActive(value: false);
+        rewindSymbol.SetActive(false);
     }
 
-    public void Restart()
-    {
-    }
+    public void Restart(){}
 }

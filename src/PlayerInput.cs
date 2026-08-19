@@ -70,15 +70,15 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    public void UpdateSensitivity(float s)
+    public void UpdateSensitivity(float _sens)
     {
-        sensMultiplier = s;
-        MonoBehaviour.print("sens set to: " + s);
+        sensMultiplier = _sens;
+        MonoBehaviour.print("sens set to: " + _sens);
     }
 
     private void MyInput()
     {
-        if ((bool)playerMovement)
+        if (playerMovement)
         {
             x = Input.GetAxisRaw("Horizontal");
             y = Input.GetAxisRaw("Vertical");
@@ -102,29 +102,26 @@ public class PlayerInput : MonoBehaviour
 
     private void Look()
     {
-        float mouseX = GetMouseX();
-        float num = Input.GetAxis("Mouse Y") * sensitivity * 0.02f * sensMultiplier;
-        desiredX = playerCam.transform.localRotation.eulerAngles.y + mouseX;
-        xRotation -= num;
+        float _mouseX = GetMouseX();
+        float _mouseY = Input.GetAxis("Mouse Y") * sensitivity * 0.02f * sensMultiplier;
+        desiredX = playerCam.transform.localRotation.eulerAngles.y + _mouseX;
+        xRotation -= _mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         actualWallRotation = Mathf.SmoothDamp(actualWallRotation, wallRunRotation, ref wallRotationVel, 0.2f);
         cameraRot = new Vector3(xRotation, desiredX, actualWallRotation);
         orientation.transform.localRotation = Quaternion.Euler(0f, desiredX, 0f);
     }
 
-    public Vector2 GetAxisInput()
-    {
-        return new Vector2(x, y);
-    }
+    public Vector2 GetAxisInput() => new(x, y);
 
     public float GetMouseX()
     {
         return Input.GetAxis("Mouse X") * sensitivity * 0.02f * sensMultiplier;
     }
 
-    public void SetMouseOffset(float o)
+    public void SetMouseOffset(float _offset)
     {
-        xRotation = o;
+        xRotation = _offset;
     }
 
     public float GetMouseOffset()

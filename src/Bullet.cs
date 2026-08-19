@@ -18,13 +18,13 @@ public class Bullet : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
-        int layer = other.gameObject.layer;
-        if (layer == LayerMask.NameToLayer("Enemy"))
+        int _layer = other.gameObject.layer;
+        if (_layer == LayerMask.NameToLayer("Enemy"))
         {
             Object.Destroy(other.transform.root.gameObject);
             Object.Instantiate(enemyKillFx, other.gameObject.transform.position, enemyKillFx.transform.rotation);
         }
-        if (layer == LayerMask.NameToLayer("Player"))
+        if (_layer == LayerMask.NameToLayer("Player"))
         {
             GameManager.Instance.PlayerDied();
         }

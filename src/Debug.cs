@@ -56,13 +56,13 @@ public class Debug : MonoBehaviour
         {
             if (!fps.enabled)
             {
-                fps.gameObject.SetActive(value: false);
+                fps.gameObject.SetActive(false);
             }
             return;
         }
         if (!fps.gameObject.activeInHierarchy)
         {
-            fps.gameObject.SetActive(value: true);
+            fps.gameObject.SetActive(true);
         }
         string text = "";
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
@@ -84,7 +84,7 @@ public class Debug : MonoBehaviour
     {
         previousCursorState = Cursor.lockState;
         previousVisible = Cursor.visible;
-        console.gameObject.SetActive(value: true);
+        console.gameObject.SetActive(true);
         console.Select();
         console.ActivateInputField();
         Cursor.lockState = CursorLockMode.None;
@@ -93,17 +93,16 @@ public class Debug : MonoBehaviour
 
     private void CloseConsole()
     {
-        console.gameObject.SetActive(value: false);
+        console.gameObject.SetActive(false);
         Cursor.lockState = previousCursorState;
         Cursor.visible = previousVisible;
     }
 
     public void RunCommand()
     {
-        string text = console.text;
-        TextMeshProUGUI textMeshProUGUI = consoleLog;
-        textMeshProUGUI.text = textMeshProUGUI.text + text + "\n";
-        if (text.Length < 2 || text.Length > 30 || CountWords(text) != 2)
+        string _text = console.text;
+        consoleLog.text += _text + "\n";
+        if (_text.Length < 2 || _text.Length > 30 || CountWords(_text) != 2)
         {
             console.text = "";
             console.Select();
@@ -111,32 +110,32 @@ public class Debug : MonoBehaviour
             return;
         }
         console.text = "";
-        string s = text.Substring(text.IndexOf(' ') + 1);
-        string text2 = text.Substring(0, text.IndexOf(' '));
-        if (!float.TryParse(s, out var result))
+        string _argument = _text.Substring(_text.IndexOf(' ') + 1);
+        string _command = _text.Substring(0, _text.IndexOf(' '));
+        if (!float.TryParse(_argument, out var _float))
         {
             consoleLog.text += "Command not found\n";
             return;
         }
-        switch (text2)
+        switch (_command)
         {
             case "fps":
-                OpenCloseFps((int)result);
+                OpenCloseFps((int)_float);
                 break;
             case "fpslimit":
-                FpsLimit((int)result);
+                FpsLimit((int)_float);
                 break;
             case "fov":
-                ChangeFov((int)result);
+                ChangeFov((int)_float);
                 break;
             case "sens":
-                ChangeSens(result);
+                ChangeSens(_float);
                 break;
             case "volume":
-                ChangeVolume(result);
+                ChangeVolume(_float);
                 break;
             case "speed":
-                OpenCloseSpeed((int)result);
+                OpenCloseSpeed((int)_float);
                 break;
             case "help":
                 Help();
@@ -152,66 +151,67 @@ public class Debug : MonoBehaviour
         consoleLog.text += text;
     }
 
-    private void FpsLimit(int n)
+    private void FpsLimit(int _fps)
     {
-        Application.targetFrameRate = n;
+        Application.targetFrameRate = _fps;
+        consoleLog.text += "Max FPS set to " + _fps + "\n";
+    }
+
+    private void OpenCloseFps(int _open)
+    {
+        MonoBehaviour.print("n, " + (_open == 1));
+        fpsOn = _open == 1;
+        consoleLog.text += "FPS set to " + fpsOn + "\n";
+    }
+
+    private void OpenCloseSpeed(int _open)
+    {
+        speedOn = _open == 1;
+        consoleLog.text += "Speedometer set to " + _open == 1 + "\n";
+    }
+
+    private void ChangeFov(int _fov)
+    {
+        GameState.Instance.SetFov(_fov);
         TextMeshProUGUI textMeshProUGUI = consoleLog;
-        textMeshProUGUI.text = textMeshProUGUI.text + "Max FPS set to " + n + "\n";
+        textMeshProUGUI.text = textMeshProUGUI.text + "FOV set to " + _fov + "\n";
     }
 
-    private void OpenCloseFps(int n)
+    private void ChangeSens(float _sens)
     {
-        MonoBehaviour.print("n, " + (n == 1));
-        fpsOn = n == 1;
+        GameState.Instance.SetSensitivity(_sens);
         TextMeshProUGUI textMeshProUGUI = consoleLog;
-        textMeshProUGUI.text = textMeshProUGUI.text + "FPS set to " + fpsOn + "\n";
+        textMeshProUGUI.text = textMeshProUGUI.text + "Sensitivity set to " + _sens + "\n";
     }
 
-    private void OpenCloseSpeed(int n)
+    private void ChangeVolume(float _volume)
     {
-        speedOn = n == 1;
-        consoleLog.text += "Speedometer set to " + n == 1 + "\n";
-    }
-
-    private void ChangeFov(int n)
-    {
-        GameState.Instance.SetFov(n);
+        AudioListener.volume = _volume;
         TextMeshProUGUI textMeshProUGUI = consoleLog;
-        textMeshProUGUI.text = textMeshProUGUI.text + "FOV set to " + n + "\n";
+        textMeshProUGUI.text = textMeshProUGUI.text + "Volume set to " + _volume + "\n";
     }
 
-    private void ChangeSens(float n)
+    private static int CountWords(string text)
     {
-        GameState.Instance.SetSensitivity(n);
-        TextMeshProUGUI textMeshProUGUI = consoleLog;
-        textMeshProUGUI.text = textMeshProUGUI.text + "Sensitivity set to " + n + "\n";
-    }
-
-    private void ChangeVolume(float n)
-    {
-        AudioListener.volume = n;
-        TextMeshProUGUI textMeshProUGUI = consoleLog;
-        textMeshProUGUI.text = textMeshProUGUI.text + "Volume set to " + n + "\n";
-    }
-
-    private int CountWords(string text)
-    {
-        int num = 0;
-        int i;
-        for (i = 0; i < text.Length && char.IsWhiteSpace(text[i]); i++)
+        int wordCount = 0;
+        int i = 0;
+        while (i < text.Length && char.IsWhiteSpace(text[i]))
         {
+            i++;
         }
         while (i < text.Length)
         {
-            for (; i < text.Length && !char.IsWhiteSpace(text[i]); i++)
+            while (i < text.Length && !char.IsWhiteSpace(text[i]))
             {
+                i++;
             }
-            num++;
-            for (; i < text.Length && char.IsWhiteSpace(text[i]); i++)
+            wordCount++;
+            while (i < text.Length && char.IsWhiteSpace(text[i]))
             {
+                i++;
             }
         }
-        return num;
+        return wordCount;
     }
 
     public bool IsConsoleOpen()

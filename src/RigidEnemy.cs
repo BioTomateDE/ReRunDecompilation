@@ -73,7 +73,7 @@ public class RigidEnemy : MonoBehaviour
     public void Start()
     {
         rb = root.GetComponent<Rigidbody>();
-        if ((bool)head)
+        if (head)
         {
             headRb = head.GetComponent<Rigidbody>();
         }
@@ -81,7 +81,7 @@ public class RigidEnemy : MonoBehaviour
         {
             headRb = rb;
         }
-        if ((bool)torso)
+        if (torso)
         {
             torsoRb = torso.GetComponent<Rigidbody>();
         }
@@ -98,7 +98,7 @@ public class RigidEnemy : MonoBehaviour
         {
             groundChecks[i] = ik.legs[i].transform;
         }
-        DisableSelfCollision(ignore: true);
+        DisableSelfCollision(_ignore: true);
     }
 
     public void FixedUpdate()
@@ -115,26 +115,26 @@ public class RigidEnemy : MonoBehaviour
                 minOneGrounded = true;
             }
         }
-        float num = 0f;
+        float _totalDist = 0f;
         if (state == EnemyState.active || state == EnemyState.tumbling || state == EnemyState.recovering || state == EnemyState.falling)
         {
-            if (!Physics.Raycast(root.position, Vector3.down, out var hitInfo, ik.heightAboveGround * 3f, ik.whatIsGround))
+            if (!Physics.Raycast(root.position, Vector3.down, out RaycastHit hitInfo, ik.heightAboveGround * 3f, ik.whatIsGround))
             {
                 UpdateState(EnemyState.falling);
             }
             else
             {
-                num = hitInfo.distance;
+                _totalDist = hitInfo.distance;
             }
         }
-        float num2 = Vector3.Angle(Vector3.up, root.up);
+        float _angle = Vector3.Angle(Vector3.up, root.up);
         if (state == EnemyState.falling)
         {
-            if (num != 0f && num < ik.heightAboveGround * 1.5f && num2 < 50f)
+            if (_totalDist != 0f && _totalDist < ik.heightAboveGround * 1.5f && _angle < 50f)
             {
                 UpdateState(EnemyState.active);
                 CancelInvoke("GetUp");
-                ConfigureLegs(makeRagdoll: false);
+                ConfigureLegs(_makeRagdoll: false);
                 recovering = false;
             }
             else if (!IsInvoking("GetUp"))
@@ -145,13 +145,13 @@ public class RigidEnemy : MonoBehaviour
         }
         if (state == EnemyState.recovering)
         {
-            bool flag = Physics.CheckSphere(root.position, 0.5f, ik.whatIsGround);
-            if (num < ik.heightAboveGround || flag)
+            bool _collides = Physics.CheckSphere(root.position, 0.5f, ik.whatIsGround);
+            if (_totalDist < ik.heightAboveGround || _collides)
             {
                 headRb.AddForce(Vector3.up * force * recoveryForce * 1.1f);
                 rb.AddForce(Vector3.up * force * recoveryForce * 0.9f);
             }
-            if ((num2 < getupAng && torsoRb.velocity.magnitude < getupMagT) || (num > ik.heightAboveGround * 0.85f && num < ik.heightAboveGround * 1.85f && num2 < 30f))
+            if ((_angle < getupAng && torsoRb.velocity.magnitude < getupMagT) || (_totalDist > ik.heightAboveGround * 0.85f && _totalDist < ik.heightAboveGround * 1.85f && _angle < 30f))
             {
                 UpdateState(EnemyState.active);
                 CancelInvoke("RecoveryCooldown");
@@ -159,30 +159,30 @@ public class RigidEnemy : MonoBehaviour
             }
             return;
         }
-        if (state == EnemyState.active && rb.velocity.magnitude < 1f && num > ik.heightAboveGround && num < ik.heightAboveGround + (ik.heightAboveGround * 0.1f))
+        if (state == EnemyState.active && rb.velocity.magnitude < 1f && _totalDist > ik.heightAboveGround && _totalDist < ik.heightAboveGround + (ik.heightAboveGround * 0.1f))
         {
             headRb.AddForce(Vector3.up * force * 0.86f);
             return;
         }
-        float num3 = Mathf.Clamp(1f - (RootHeight() / ik.heightAboveGround), -1f, 1f);
-        if (num2 < tumbleAngle)
+        float _height = Mathf.Clamp(1f - (RootHeight() / ik.heightAboveGround), -1f, 1f);
+        if (_angle < tumbleAngle)
         {
             UpdateState(EnemyState.active);
         }
-        else if (num2 < fallAngle)
+        else if (_angle < fallAngle)
         {
             UpdateState(EnemyState.tumbling);
         }
-        else if (num2 > fallAngle)
+        else if (_angle > fallAngle)
         {
             UpdateState(EnemyState.falling);
         }
         if (minOneGrounded)
         {
-            rb.AddForce(root.up * force * num3 * 2f);
+            rb.AddForce(root.up * force * _height * 2f);
             rb.AddForce(root.up * force * legPushForce);
         }
-        if (num < ik.heightAboveGround * 2f)
+        if (_totalDist < ik.heightAboveGround * 2f)
         {
             StabilizingBody();
         }
@@ -196,7 +196,7 @@ public class RigidEnemy : MonoBehaviour
     public void Concuss()
     {
         UpdateState(EnemyState.falling);
-        ConfigureLegs(makeRagdoll: true);
+        ConfigureLegs(_makeRagdoll: true);
         recovering = true;
         Invoke("GetUp", recoverTime * UnityEngine.Random.Range(0.7f, 1.5f));
     }
@@ -206,7 +206,7 @@ public class RigidEnemy : MonoBehaviour
         if (Physics.CheckSphere(root.position, ik.heightAboveGround * 0.5f, ik.whatIsGround))
         {
             UpdateState(EnemyState.recovering);
-            ConfigureLegs(makeRagdoll: false);
+            ConfigureLegs(_makeRagdoll: false);
         }
         else
         {
@@ -214,37 +214,37 @@ public class RigidEnemy : MonoBehaviour
         }
     }
 
-    private void ConfigureLegs(bool makeRagdoll)
+    private void ConfigureLegs(bool _makeRagdoll)
     {
-        if (makeRagdoll == ragdoll)
+        if (_makeRagdoll == ragdoll)
         {
             return;
         }
-        ragdoll = makeRagdoll;
+        ragdoll = _makeRagdoll;
         for (int i = 0; i < ik.legs.Length; i++)
         {
-            int num = ik.legs[i].ChainLength;
-            Transform parent = ik.legs[i].transform;
-            while (num > 0)
+            int _chainLength = ik.legs[i].ChainLength;
+            Transform _parent = ik.legs[i].transform;
+            while (_chainLength > 0)
             {
-                parent = parent.parent;
-                if (makeRagdoll)
+                _parent = _parent.parent;
+                if (_makeRagdoll)
                 {
-                    parent.gameObject.AddComponent<CharacterJoint>().connectedBody = parent.parent.GetComponent<Rigidbody>();
+                    _parent.gameObject.AddComponent<CharacterJoint>().connectedBody = _parent.parent.GetComponent<Rigidbody>();
                 }
                 else
                 {
-                    UnityEngine.Object.Destroy(parent.gameObject.GetComponent<Joint>());
+                    UnityEngine.Object.Destroy(_parent.gameObject.GetComponent<Joint>());
                 }
-                num--;
+                _chainLength--;
             }
-            Rigidbody[] componentsInChildren = parent.GetComponentsInChildren<Rigidbody>();
+            Rigidbody[] componentsInChildren = _parent.GetComponentsInChildren<Rigidbody>();
             foreach (Rigidbody obj in componentsInChildren)
             {
-                obj.isKinematic = !makeRagdoll;
-                obj.interpolation = (makeRagdoll ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None);
+                obj.isKinematic = !_makeRagdoll;
+                obj.interpolation = _makeRagdoll ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
             }
-            ik.legs[i].enabled = !makeRagdoll;
+            ik.legs[i].enabled = !_makeRagdoll;
             ik.ForceCurrentPosition(i);
         }
     }
@@ -266,79 +266,80 @@ public class RigidEnemy : MonoBehaviour
 
     private void CaluclateForce()
     {
-        float num = 0f;
-        Rigidbody[] componentsInChildren = GetComponentsInChildren<Rigidbody>();
-        foreach (Rigidbody rigidbody in componentsInChildren)
+        float _totalMass = 0f;
+        Rigidbody[] _bodies = GetComponentsInChildren<Rigidbody>();
+        foreach (Rigidbody _body in _bodies)
         {
-            if (!rigidbody.isKinematic)
+            if (!_body.isKinematic)
             {
-                num += rigidbody.mass;
+                _totalMass += _body.mass;
             }
         }
-        force = num * (0f - Physics.gravity.y);
+        force = _totalMass * (-Physics.gravity.y);
     }
 
-    public void RotateBody(Vector3 dir)
+    public void RotateBody(Vector3 _dir)
     {
-        float y = root.transform.eulerAngles.y;
-        float y2 = Quaternion.LookRotation(dir).eulerAngles.y;
-        float value = Mathf.DeltaAngle(y, y2);
-        value = Mathf.Clamp(value, -2f, 2f);
-        rb.AddTorque(Vector3.up * value * force * rotationForce);
+        float _y = root.transform.eulerAngles.y;
+        float _y2 = Quaternion.LookRotation(_dir).eulerAngles.y;
+        float _deltaAngle = Mathf.DeltaAngle(_y, _y2);
+        _deltaAngle = Mathf.Clamp(_deltaAngle, -2f, 2f);
+        rb.AddTorque(Vector3.up * _deltaAngle * force * rotationForce);
     }
 
-    public void MoveBody(Vector3 dir)
+    public void MoveBody(Vector3 _dir)
     {
-        rb.AddForce(dir * moveSpeed * rb.mass);
-        headRb.AddForce(dir * moveSpeed * headRb.mass);
-        torsoRb.AddForce(dir * moveSpeed * torsoRb.mass);
+        rb.AddForce(_dir * moveSpeed * rb.mass);
+        headRb.AddForce(_dir * moveSpeed * headRb.mass);
+        torsoRb.AddForce(_dir * moveSpeed * torsoRb.mass);
     }
 
-    public void UpdateState(EnemyState s)
+    public void UpdateState(EnemyState _newState)
     {
-        if (state != s)
+        if (state == _newState)
         {
-            state = s;
-            switch (s)
-            {
-                case EnemyState.active:
-                    ConfigureRb(5f, 5f, maxRotationForce, 1f);
-                    break;
-                case EnemyState.tumbling:
-                    ConfigureRb(1f, 4f, 0f, 0.1f);
-                    break;
-                case EnemyState.falling:
-                    ConfigureRb(0f, 0f, 0f, 0f);
-                    Concuss();
-                    break;
-                case EnemyState.recovering:
-                    ConfigureRb(4f, 4f, maxRotationForce, 0.15f);
-                    break;
-                case EnemyState.dead:
-                    ConfigureRb(0f, 0f, 0f, 0f);
-                    KillRigidEnemy();
-                    break;
-                default:
-                    rb.drag = 0f;
-                    rb.angularDrag = 0f;
-                    break;
-            }
+            return;
+        }
+        state = _newState;
+        switch (_newState)
+        {
+            case EnemyState.active:
+                ConfigureRb(5f, 5f, maxRotationForce, 1f);
+                break;
+            case EnemyState.tumbling:
+                ConfigureRb(1f, 4f, 0f, 0.1f);
+                break;
+            case EnemyState.falling:
+                ConfigureRb(0f, 0f, 0f, 0f);
+                Concuss();
+                break;
+            case EnemyState.recovering:
+                ConfigureRb(4f, 4f, maxRotationForce, 0.15f);
+                break;
+            case EnemyState.dead:
+                ConfigureRb(0f, 0f, 0f, 0f);
+                KillRigidEnemy();
+                break;
+            default:
+                rb.drag = 0f;
+                rb.angularDrag = 0f;
+                break;
         }
     }
 
     public void KillRigidEnemy()
     {
-        DisableSelfCollision(ignore: false);
-        ConfigureLegs(makeRagdoll: true);
+        DisableSelfCollision(_ignore: false);
+        ConfigureLegs(_makeRagdoll: true);
         CancelInvoke();
-        Transform[] componentsInChildren = base.transform.GetComponentsInChildren<Transform>();
-        foreach (Transform transform in componentsInChildren)
+        Transform[] _transforms = base.transform.GetComponentsInChildren<Transform>();
+        foreach (Transform _transform in _transforms)
         {
-            if (transform.CompareTag("GrapplePoint"))
+            if (_transform.CompareTag("GrapplePoint"))
             {
-                UnityEngine.Object.Destroy(transform.gameObject);
+                UnityEngine.Object.Destroy(_transform.gameObject);
             }
-            transform.tag = "Dead";
+            _transform.tag = "Dead";
         }
         ik.CollectGarbage();
         base.gameObject.AddComponent<DestroyObject>().time = 10f;
@@ -346,25 +347,26 @@ public class RigidEnemy : MonoBehaviour
         UnityEngine.Object.Destroy(ik);
     }
 
-    private void ConfigureRb(float drag, float angularDrag, float rotation, float stabilize)
+    private void ConfigureRb(float _drag, float _angularDrag, float _rotation, float _stabilize)
     {
-        if (drag != -1f)
+        if (_drag != -1f)
         {
-            rb.drag = drag;
-            torsoRb.drag = drag;
+            rb.drag = _drag;
+            torsoRb.drag = _drag;
         }
-        if (angularDrag != -1f)
+        if (_angularDrag != -1f)
         {
-            rb.angularDrag = angularDrag;
-            torsoRb.angularDrag = angularDrag;
+            rb.angularDrag = _angularDrag;
+            torsoRb.angularDrag = _angularDrag;
         }
         if (rotationForce != -1f)
         {
-            rotationForce = rotation;
+            // ^^^ this is probably a bug, it should check _rotation instead of rotationForce
+            rotationForce = _rotation;
         }
-        if (stabilize != -1f)
+        if (_stabilize != -1f)
         {
-            stabilizeForce = stabilize;
+            stabilizeForce = _stabilize;
         }
     }
 
@@ -374,29 +376,30 @@ public class RigidEnemy : MonoBehaviour
         {
             return Vector3.zero;
         }
-        Vector3 result = rb.velocity * moveLegsWithSpeedScale;
-        if (result.magnitude > 1f)
+        Vector3 _vector = rb.velocity * moveLegsWithSpeedScale;
+        if (_vector.magnitude > 1f)
         {
-            return result.normalized;
+            return _vector.normalized;
         }
-        return result;
+        return _vector;
     }
 
-    private void DisableSelfCollision(bool ignore)
+    private void DisableSelfCollision(bool _ignore)
     {
         try
         {
-            Collider[] componentsInChildren = GetComponentsInChildren<Collider>();
-            for (int i = 0; i < componentsInChildren.Length; i++)
+            Collider[] _colliders = GetComponentsInChildren<Collider>();
+            for (int i = 0; i < _colliders.Length; i++)
             {
-                for (int j = i; j < componentsInChildren.Length; j++)
+                for (int j = i; j < _colliders.Length; j++)
                 {
-                    Physics.IgnoreCollision(componentsInChildren[i], componentsInChildren[j], ignore);
+                    Physics.IgnoreCollision(_colliders[i], _colliders[j], _ignore);
                 }
             }
         }
         catch (Exception)
         {
+            // very good code dani
         }
     }
 }

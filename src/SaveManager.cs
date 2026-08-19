@@ -38,18 +38,18 @@ public class SaveManager : MonoBehaviour
         MonoBehaviour.print("Creating new save file");
     }
 
-    public string Serialize<T>(T toSerialize)
+    public static string Serialize<T>(T toSerialize)
     {
-        XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-        StringWriter stringWriter = new StringWriter();
+        XmlSerializer xmlSerializer = new(typeof(T));
+        StringWriter stringWriter = new();
         xmlSerializer.Serialize(stringWriter, toSerialize);
         return stringWriter.ToString();
     }
 
-    public T Deserialize<T>(string toDeserialize)
+    public static T Deserialize<T>(string toDeserialize)
     {
-        XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-        StringReader textReader = new StringReader(toDeserialize);
+        XmlSerializer xmlSerializer = new(typeof(T));
+        StringReader textReader = new(toDeserialize);
         return (T)xmlSerializer.Deserialize(textReader);
     }
 }

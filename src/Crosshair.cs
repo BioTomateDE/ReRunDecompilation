@@ -19,16 +19,16 @@ public class Crosshair : MonoBehaviour
         Instance = this;
     }
 
-    public void ChangeCrosshair(CrosshairMode mode)
+    public void ChangeCrosshair(CrosshairMode _mode)
     {
         HideAll();
-        switch (mode)
+        switch (_mode)
         {
             case CrosshairMode.Normal:
-                crosshair.SetActive(value: true);
+                crosshair.SetActive(true);
                 break;
             case CrosshairMode.Button:
-                button.SetActive(value: true);
+                button.SetActive(true);
                 break;
         }
     }
@@ -36,11 +36,11 @@ public class Crosshair : MonoBehaviour
     private void HideAll()
     {
         Transform[] componentsInChildren = base.transform.GetComponentsInChildren<Transform>();
-        foreach (Transform transform in componentsInChildren)
+        foreach (Transform _transform in componentsInChildren)
         {
-            if (transform != base.transform)
+            if (_transform != base.transform)
             {
-                transform.gameObject.SetActive(value: false);
+                _transform.gameObject.SetActive(false);
             }
         }
     }

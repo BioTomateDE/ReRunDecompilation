@@ -10,14 +10,12 @@ public class SpawnManagers : MonoBehaviour
         {
             Object.Instantiate(managers);
         }
-        if ((bool)MusicController.Instance)
+        if (MusicController.Instance)
         {
             MusicController.Instance.SetFreq(0.02f);
         }
         Object.Destroy(base.gameObject);
     }
 
-    public void Start()
-    {
-    }
+    public void Start() { }
 }

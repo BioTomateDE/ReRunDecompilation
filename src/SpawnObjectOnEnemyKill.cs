@@ -17,7 +17,7 @@ public class SpawnObjectOnEnemyKill : MonoBehaviour
         }
         else
         {
-            spawnObject.SetActive(value: false);
+            spawnObject.SetActive(false);
         }
     }
 
@@ -32,6 +32,6 @@ public class SpawnObjectOnEnemyKill : MonoBehaviour
 
     private void ActivateObject()
     {
-        spawnObject.SetActive(value: true);
+        spawnObject.SetActive(true);
     }
 }

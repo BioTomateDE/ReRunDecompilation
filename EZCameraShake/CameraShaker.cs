@@ -67,7 +67,7 @@ namespace EZCameraShake
 
         public CameraShakeInstance ShakeOnce(float magnitude, float roughness, float fadeInTime, float fadeOutTime)
         {
-            if ((bool)GameState.Instance && !GameState.Instance.shake)
+            if (GameState.Instance && !GameState.Instance.shake)
             {
                 return null;
             }

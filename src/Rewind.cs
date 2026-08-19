@@ -39,17 +39,17 @@ public class Rewind : MonoBehaviour
         lr.positionCount = bufferSize;
         rb = GetComponent<Rigidbody>();
         playerHistory = new RewindObject[bufferSize];
-        RewindObject rewindObject = new RewindObject(base.transform.position, Vector3.zero);
+        RewindObject _rewindObject = new(base.transform.position, Vector3.zero);
         for (int i = 0; i < bufferSize; i++)
         {
-            playerHistory[i] = rewindObject;
+            playerHistory[i] = _rewindObject;
         }
         tick = bufferSize;
     }
 
     public void FixedUpdate()
     {
-        RewindObject rewindObject = new RewindObject(base.transform.position, rb.velocity);
+        RewindObject rewindObject = new(base.transform.position, rb.velocity);
         playerHistory[tick % bufferSize] = rewindObject;
         tick++;
         UpdateLineRenderer();

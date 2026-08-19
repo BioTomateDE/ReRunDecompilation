@@ -40,7 +40,7 @@ public class MoveObject : Manipulate
     public override void Activate()
     {
         active = true;
-        if ((bool)sfx)
+        if (sfx)
         {
             sfx.Play();
         }

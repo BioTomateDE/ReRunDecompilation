@@ -34,11 +34,11 @@ public class Music : MonoBehaviour
         StartCoroutine(loadMusic());
     }
 
-    public void PlayMusic(MusicType t, float fadeSpeed)
+    public void PlayMusic(MusicType _musicType, float _fadeSpeed)
     {
-        this.fadeSpeed = fadeSpeed;
+        fadeSpeed = _fadeSpeed;
         desiredVolume = 1f;
-        switch (t)
+        switch (_musicType)
         {
             case MusicType.Ambient:
                 music.clip = ambient;
@@ -69,13 +69,16 @@ public class Music : MonoBehaviour
     private IEnumerator loadMusic()
     {
         string text = Application.dataPath + "/Resources/Music";
-        WWW www = new WWW("file:/" + text + "/ambient.ogg");
-        WWW www2 = new WWW("file:/" + text + "/intense.ogg");
-        WWW www3 = new WWW("file:/" + text + "/battle.ogg");
-        yield return www;
-        ambient = www.GetAudioClip(threeD: false);
-        intense = www2.GetAudioClip(threeD: false);
-        battle = www3.GetAudioClip(threeD: false);
+        // 'WWW' is obsolete: 'Use UnityWebRequest, a fully featured replacement which is more efficient and has additional features' (CS0618)
+#pragma warning disable CS0618
+        WWW _ambient = new("file:/" + text + "/ambient.ogg");
+        WWW _intense = new("file:/" + text + "/intense.ogg");
+        WWW _battle = new("file:/" + text + "/battle.ogg");
+#pragma warning restore CS0618
+        yield return _ambient;
+        ambient = _ambient.GetAudioClip(threeD: false);
+        intense = _intense.GetAudioClip(threeD: false);
+        battle = _battle.GetAudioClip(threeD: false);
         music.clip = ambient;
         music.Play();
     }

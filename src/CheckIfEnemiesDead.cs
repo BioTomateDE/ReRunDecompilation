@@ -16,16 +16,15 @@ public class CheckIfEnemiesDead : MonoBehaviour
         {
             return;
         }
-        int num = 0;
-        Player[] array = enemies;
-        foreach (Player player in array)
+        int _deadCount = 0;
+        foreach (Player player in enemies)
         {
             if (!player || player.hp <= 0)
             {
-                num++;
+                _deadCount++;
             }
         }
-        if (num >= enemies.Length)
+        if (_deadCount >= enemies.Length)
         {
             done = true;
             Invoke("Activate", delay);
@@ -34,10 +33,9 @@ public class CheckIfEnemiesDead : MonoBehaviour
 
     public void Activate()
     {
-        Manipulate[] array = actions;
-        for (int i = 0; i < array.Length; i++)
+        for (int i = 0; i < actions.Length; i++)
         {
-            array[i].Activate();
+            actions[i].Activate();
         }
         Object.Destroy(base.gameObject);
     }

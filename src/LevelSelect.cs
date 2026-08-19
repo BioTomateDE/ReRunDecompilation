@@ -19,8 +19,8 @@ public class LevelSelect : MonoBehaviour
         }
     }
 
-    public void LoadLevel(int i)
+    public void LoadLevel(int _level)
     {
-        SceneManager.LoadScene(i + 1);
+        SceneManager.LoadScene(_level + 1);
     }
 }

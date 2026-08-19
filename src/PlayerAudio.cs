@@ -17,7 +17,5 @@ public class PlayerAudio : MonoBehaviour
         rb = PlayerMovement.Instance.GetRb();
     }
 
-    public void Update()
-    {
-    }
+    public void Update() { }
 }

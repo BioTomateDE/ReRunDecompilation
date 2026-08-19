@@ -155,12 +155,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetInput(Vector2 dir, bool crouching, bool jumping)
+    public void SetInput(Vector2 _dir, bool _crouching, bool _jumping)
     {
-        x = dir.x;
-        y = dir.y;
-        this.crouching = crouching;
-        this.jumping = jumping;
+        x = _dir.x;
+        y = _dir.y;
+        crouching = _crouching;
+        jumping = _jumping;
     }
 
     private void CheckInput()
@@ -216,12 +216,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Movement(float x, float y)
+    public void Movement(float _x, float _y)
     {
         UpdateCollisionChecks();
         SpeedLines();
-        this.x = x;
-        this.y = y;
+        x = _x;
+        y = _y;
         if (dead)
         {
             return;
@@ -231,11 +231,9 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.down * 2f);
         }
-        Vector2 mag = FindVelRelativeToLook();
-        float num = mag.x;
-        float num2 = mag.y;
-        CounterMovement(x, y, mag);
-        RampMovement(mag);
+        Vector2 _velocity = FindVelRelativeToLook();
+        CounterMovement(x, y, _velocity);
+        RampMovement(_velocity);
         if (readyToJump && jumping)
         {
             Jump();
@@ -245,61 +243,61 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector3.down * 60f);
             return;
         }
-        float num3 = x;
-        float num4 = y;
-        if (x > 0f && num > maxSpeed)
+        float _xNormal = x;
+        float _yNormal = y;
+        if (x > 0f && _velocity.x > maxSpeed)
         {
-            num3 = 0f;
+            _xNormal = 0f;
         }
-        if (x < 0f && num < 0f - maxSpeed)
+        if (x < 0f && _velocity.x < -maxSpeed)
         {
-            num3 = 0f;
+            _xNormal = 0f;
         }
-        if (y > 0f && num2 > maxSpeed)
+        if (y > 0f && _velocity.y > maxSpeed)
         {
-            num4 = 0f;
+            _yNormal = 0f;
         }
-        if (y < 0f && num2 < 0f - maxSpeed)
+        if (y < 0f && _velocity.y < -maxSpeed)
         {
-            num4 = 0f;
+            _yNormal = 0f;
         }
-        float num5 = 1f;
-        float num6 = 1f;
+        float _strafeMultiplier = 1f;
+        float _forwardMultiplier = 1f;
         if (!grounded)
         {
-            num5 = 0.6f;
-            num6 = 0.6f;
-            if (IsHoldingAgainstVerticalVel(mag))
+            _strafeMultiplier = 0.6f;
+            _forwardMultiplier = 0.6f;
+            if (IsHoldingAgainstVerticalVel(_velocity))
             {
-                float num7 = Mathf.Abs(mag.y * 0.025f);
-                if (num7 < 0.5f)
+                float _forwardMulti2 = Mathf.Abs(_velocity.y * 0.025f);
+                if (_forwardMulti2 < 0.5f)
                 {
-                    num7 = 0.5f;
+                    _forwardMulti2 = 0.5f;
                 }
-                num6 = Mathf.Abs(num7);
+                _forwardMultiplier = Mathf.Abs(_forwardMulti2);
             }
         }
         if (grounded && crouching)
         {
-            num6 = 0f;
+            _forwardMultiplier = 0f;
         }
         if (surfing)
         {
-            num5 = 0.6f;
-            num6 = 0.3f;
+            _strafeMultiplier = 0.6f;
+            _forwardMultiplier = 0.3f;
         }
         const float num8 = 0.01f;
-        rb.AddForce(orientation.forward * num4 * moveSpeed * 0.02f * num6);
-        rb.AddForce(orientation.right * num3 * moveSpeed * 0.02f * num5);
+        rb.AddForce(orientation.forward * _yNormal * moveSpeed * 0.02f * _forwardMultiplier);
+        rb.AddForce(orientation.right * _xNormal * moveSpeed * 0.02f * _strafeMultiplier);
         if (!grounded)
         {
-            if (num3 != 0f)
+            if (_xNormal != 0f)
             {
-                rb.AddForce(-orientation.forward * mag.y * moveSpeed * 0.02f * num8);
+                rb.AddForce(-orientation.forward * _velocity.y * moveSpeed * 0.02f * num8);
             }
-            if (num4 != 0f)
+            if (_yNormal != 0f)
             {
-                rb.AddForce(-orientation.right * mag.x * moveSpeed * 0.02f * num8);
+                rb.AddForce(-orientation.right * _velocity.x * moveSpeed * 0.02f * num8);
             }
         }
         if (!readyToJump)
@@ -334,23 +332,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedLines()
     {
-        float num = Vector3.Angle(rb.velocity, playerCam.transform.forward) * 0.15f;
-        if (num < 1f)
+        float _angle = Vector3.Angle(rb.velocity, playerCam.transform.forward) * 0.15f;
+        if (_angle < 1f)
         {
-            num = 1f;
+            _angle = 1f;
         }
-        float rateOverTimeMultiplier = rb.velocity.magnitude / num;
+        float _multiplier = rb.velocity.magnitude / _angle;
         if (grounded)
         {
-            rateOverTimeMultiplier = 0f;
+            _multiplier = 0f;
         }
-        psEmission.rateOverTimeMultiplier = rateOverTimeMultiplier;
+        psEmission.rateOverTimeMultiplier = _multiplier;
     }
 
     private void CameraShake()
     {
-        float num = rb.velocity.magnitude / 9f;
-        CameraShaker.Instance.ShakeOnce(num, 0.1f * num, 0.25f, 0.2f);
+        float _magnitude = rb.velocity.magnitude / 9f;
+        CameraShaker.Instance.ShakeOnce(_magnitude, 0.1f * _magnitude, 0.25f, 0.2f);
         Invoke("CameraShake", 0.2f);
     }
 
@@ -369,22 +367,24 @@ public class PlayerMovement : MonoBehaviour
             secondJump = false;
             rb.AddForce(Vector2.up * jumpForce * 1.5f, ForceMode.Impulse);
             rb.AddForce(normalVector * jumpForce * 0.5f, ForceMode.Impulse);
-            Vector3 velocity = rb.velocity;
+            Vector3 _velocity = rb.velocity;
             if (rb.velocity.y < 0.5f)
             {
-                rb.velocity = new Vector3(velocity.x, 0f, velocity.z);
+                rb.velocity = new Vector3(_velocity.x, 0f, _velocity.z);
             }
             else if (rb.velocity.y > 0f)
             {
-                rb.velocity = new Vector3(velocity.x, 0f, velocity.z);
+                rb.velocity = new Vector3(_velocity.x, 0f, _velocity.z);
             }
-            ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = UnityEngine.Object.Instantiate(playerJumpSmokeFx, base.transform.position, Quaternion.LookRotation(Vector3.up)).GetComponent<ParticleSystem>().velocityOverLifetime;
-            velocityOverLifetime.x = rb.velocity.x * 2f;
-            velocityOverLifetime.z = rb.velocity.z * 2f;
+            Quaternion _up = Quaternion.LookRotation(Vector3.up);
+            GameObject _obj = UnityEngine.Object.Instantiate(playerJumpSmokeFx, base.transform.position, _up);
+            ParticleSystem.VelocityOverLifetimeModule _velocityOverLifetime = _obj.GetComponent<ParticleSystem>().velocityOverLifetime;
+            _velocityOverLifetime.x = rb.velocity.x * 2f;
+            _velocityOverLifetime.z = rb.velocity.z * 2f;
         }
     }
 
-    private void CounterMovement(float x, float y, Vector2 mag)
+    private void CounterMovement(float _x, float _y, Vector2 _mag)
     {
         if (!grounded || jumping || exploded)
         {
@@ -395,29 +395,28 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(moveSpeed * 0.02f * -rb.velocity.normalized * slideCounterMovement);
             return;
         }
-        if (Math.Abs(mag.x) > threshold && Math.Abs(x) < 0.05f && readyToCounterX > 1)
+        if (Math.Abs(_mag.x) > threshold && Math.Abs(_x) < 0.05f && readyToCounterX > 1)
         {
-            rb.AddForce(moveSpeed * orientation.transform.right * 0.02f * (0f - mag.x) * counterMovement);
+            rb.AddForce(moveSpeed * orientation.transform.right * 0.02f * (-_mag.x) * counterMovement);
         }
-        if (Math.Abs(mag.y) > threshold && Math.Abs(y) < 0.05f && readyToCounterY > 1)
+        if (Math.Abs(_mag.y) > threshold && Math.Abs(_y) < 0.05f && readyToCounterY > 1)
         {
-            rb.AddForce(moveSpeed * orientation.transform.forward * 0.02f * (0f - mag.y) * counterMovement);
+            rb.AddForce(moveSpeed * orientation.transform.forward * 0.02f * (-_mag.y) * counterMovement);
         }
-        if (IsHoldingAgainstHorizontalVel(mag))
+        if (IsHoldingAgainstHorizontalVel(_mag))
         {
-            rb.AddForce(moveSpeed * orientation.transform.right * 0.02f * (0f - mag.x) * counterMovement * 2f);
+            rb.AddForce(moveSpeed * orientation.transform.right * 0.02f * (-_mag.x) * counterMovement * 2f);
         }
-        if (IsHoldingAgainstVerticalVel(mag))
+        if (IsHoldingAgainstVerticalVel(_mag))
         {
-            rb.AddForce(moveSpeed * orientation.transform.forward * 0.02f * (0f - mag.y) * counterMovement * 2f);
+            rb.AddForce(moveSpeed * orientation.transform.forward * 0.02f * (-_mag.y) * counterMovement * 2f);
         }
         if (Mathf.Sqrt(Mathf.Pow(rb.velocity.x, 2f) + Mathf.Pow(rb.velocity.z, 2f)) > maxSpeed)
         {
-            float num = rb.velocity.y;
-            Vector3 vector = rb.velocity.normalized * maxSpeed;
-            rb.velocity = new Vector3(vector.x, num, vector.z);
+            Vector3 _velocity = rb.velocity.normalized * maxSpeed;
+            rb.velocity = new Vector3(_velocity.x, rb.velocity.y, _velocity.z);
         }
-        if (Math.Abs(x) < 0.05f)
+        if (Math.Abs(_x) < 0.05f)
         {
             readyToCounterX++;
         }
@@ -425,7 +424,7 @@ public class PlayerMovement : MonoBehaviour
         {
             readyToCounterX = 0;
         }
-        if (Math.Abs(y) < 0.05f)
+        if (Math.Abs(_y) < 0.05f)
         {
             readyToCounterY++;
         }
@@ -435,11 +434,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool IsHoldingAgainstHorizontalVel(Vector2 vel)
+    private bool IsHoldingAgainstHorizontalVel(Vector2 _vel)
     {
-        if (!(vel.x < 0f - threshold) || !(x > 0f))
+        if (!(_vel.x < -threshold) || !(x > 0f))
         {
-            if (vel.x > threshold)
+            if (_vel.x > threshold)
             {
                 return x < 0f;
             }
@@ -448,11 +447,11 @@ public class PlayerMovement : MonoBehaviour
         return true;
     }
 
-    private bool IsHoldingAgainstVerticalVel(Vector2 vel)
+    private bool IsHoldingAgainstVerticalVel(Vector2 _vel)
     {
-        if (!(vel.y < 0f - threshold) || !(y > 0f))
+        if (!(_vel.y < -threshold) || !(y > 0f))
         {
-            if (vel.y > threshold)
+            if (_vel.y > threshold)
             {
                 return y < 0f;
             }
@@ -463,22 +462,23 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 FindVelRelativeToLook()
     {
-        float current = orientation.transform.eulerAngles.y;
-        float target = Mathf.Atan2(rb.velocity.x, rb.velocity.z) * 57.29578f;
-        float num = Mathf.DeltaAngle(current, target);
-        float num2 = 90f - num;
-        float magnitude = new Vector2(rb.velocity.x, rb.velocity.z).magnitude;
-        return new Vector2(x: magnitude * Mathf.Cos(num2 * ((float)Math.PI / 180f)), y: magnitude * Mathf.Cos(num * ((float)Math.PI / 180f)));
+        float _current = orientation.transform.eulerAngles.y;
+        float _target = Mathf.Atan2(rb.velocity.x, rb.velocity.z) * 57.29578f;
+        float _deltaAngle = Mathf.DeltaAngle(_current, _target);
+        float _magnitude = new Vector2(rb.velocity.x, rb.velocity.z).magnitude;
+        float _x = Mathf.Cos((90f - _deltaAngle) * (Mathf.PI / 180f));
+        float _y = Mathf.Cos(_deltaAngle * (Mathf.PI / 180f));
+        return new Vector2(_x, _y) * _magnitude;
     }
 
-    private bool IsFloor(Vector3 v)
+    private bool IsFloor(Vector3 _vector)
     {
-        return Vector3.Angle(Vector3.up, v) < maxSlopeAngle;
+        return Vector3.Angle(Vector3.up, _vector) < maxSlopeAngle;
     }
 
-    private bool IsSurf(Vector3 v)
+    private bool IsSurf(Vector3 _vector)
     {
-        float num = Vector3.Angle(Vector3.up, v);
+        float num = Vector3.Angle(Vector3.up, _vector);
         if (num < 89f)
         {
             return num > maxSlopeAngle;
@@ -486,48 +486,49 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    private bool IsWall(Vector3 v)
+    private bool IsWall(Vector3 _vector)
     {
-        return Math.Abs(90f - Vector3.Angle(Vector3.up, v)) < 0.1f;
+        return Math.Abs(90f - Vector3.Angle(Vector3.up, _vector)) < 0.1f;
     }
 
-    private bool IsRoof(Vector3 v)
+    public bool IsRoof(Vector3 _vector)
     {
-        return v.y == -1f;
+        return _vector.y == -1f;
     }
 
     public void OnCollisionEnter(Collision other)
     {
-        int layer = other.gameObject.layer;
-        Vector3 normal = other.contacts[0].normal;
-        if ((int)whatIsGround != ((int)whatIsGround | (1 << layer)))
+        if (!SameGround(other))
         {
             return;
         }
-        if (IsFloor(normal))
+        Vector3 _contactNormal = other.contacts[0].normal;
+        if (IsFloor(_contactNormal))
         {
             jumpsLeft = maxJumps;
             secondJump = true;
             MoveCamera.Instance.BobOnce(new Vector3(0f, fallSpeed, 0f));
             if (fallSpeed < -15f)
             {
-                Vector3 point = other.contacts[0].point;
-                ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = UnityEngine.Object.Instantiate(playerSmokeFx, point, Quaternion.LookRotation(base.transform.position - point)).GetComponent<ParticleSystem>().velocityOverLifetime;
+                Vector3 _contact = other.contacts[0].point;
+                Quaternion _rotation = Quaternion.LookRotation(base.transform.position - _contact);
+                var _newObject = UnityEngine.Object.Instantiate(playerSmokeFx, _contact, _rotation);
+                ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = _newObject.GetComponent<ParticleSystem>().velocityOverLifetime;
                 velocityOverLifetime.x = rb.velocity.x * 2f;
                 velocityOverLifetime.z = rb.velocity.z * 2f;
             }
         }
-        const float num = 1.3f;
-        if (IsWall(normal))
+        const float _maxRayDistance = 1.3f;
+        if (IsWall(_contactNormal))
         {
-            Vector3 normalized = lastMoveSpeed.normalized;
-            Vector3 vector = base.transform.position + (Vector3.up * 1.6f);
-            UnityEngine.Debug.DrawLine(vector, vector + (normalized * num), Color.blue, 10f);
-            if (!Physics.Raycast(vector, normalized, num, whatIsGround) && Physics.Raycast(vector + (normalized * num), Vector3.down, out var hitInfo, 3f, whatIsGround))
+            Vector3 _speedNormal = lastMoveSpeed.normalized;
+            Vector3 _vector = base.transform.position + (Vector3.up * 1.6f);
+            UnityEngine.Debug.DrawLine(_vector, _vector + (_speedNormal * _maxRayDistance), Color.blue, 10f);
+            if (!Physics.Raycast(_vector, _speedNormal, _maxRayDistance, whatIsGround) && Physics.Raycast(_vector + (_speedNormal * _maxRayDistance), Vector3.down, out RaycastHit hitInfo, 3f, whatIsGround))
             {
-                Vector3 vector2 = hitInfo.point + (Vector3.up * playerHeight * 0.5f);
-                MoveCamera.Instance.vaultOffset += base.transform.position - vector2;
-                base.transform.position = vector2;
+                Vector3 _collision = hitInfo.point + (Vector3.up * playerHeight * 0.5f);
+                MoveCamera.Instance.vaultOffset += base.transform.position - _collision;
+                base.transform.position = _collision;
                 rb.velocity = lastMoveSpeed * 0.4f;
                 jumpsLeft = maxJumps;
             }
@@ -536,33 +537,39 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnCollisionStay(Collision other)
     {
-        int layer = other.gameObject.layer;
-        if ((int)whatIsGround != ((int)whatIsGround | (1 << layer)))
+        if (!SameGround(other))
         {
             return;
         }
         for (int i = 0; i < other.contactCount; i++)
         {
-            Vector3 normal = other.contacts[i].normal;
-            if (IsFloor(normal))
+            Vector3 _contactNormal = other.contacts[i].normal;
+            if (IsFloor(_contactNormal))
             {
                 if (!grounded && crouching)
                 {
                     slideAudio.PlayStartSlide();
                 }
-                onRamp = Vector3.Angle(Vector3.up, normal) > 1f;
+                onRamp = Vector3.Angle(Vector3.up, _contactNormal) > 1f;
                 grounded = true;
-                normalVector = normal;
+                normalVector = _contactNormal;
                 cancellingGrounded = false;
                 groundCancel = 0;
             }
-            if (IsSurf(normal))
+            if (IsSurf(_contactNormal))
             {
                 surfing = true;
                 cancellingSurf = false;
                 surfCancel = 0;
             }
         }
+    }
+
+    private bool SameGround(Collision other)
+    {
+        int _layer = other.gameObject.layer;
+        int _groundMask = (int)whatIsGround;
+        return _groundMask == (_groundMask | (1 << _layer));
     }
 
     private void UpdateCollisionChecks()
@@ -574,7 +581,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             groundCancel++;
-            if ((float)groundCancel > delay)
+            if (groundCancel > delay)
             {
                 StopGrounded();
             }
@@ -586,7 +593,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         surfCancel++;
-        if ((float)surfCancel > delay)
+        if (surfCancel > delay)
         {
             StopSurf();
         }
@@ -624,36 +631,25 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 HitPoint()
     {
-        RaycastHit[] array = Physics.RaycastAll(playerCam.transform.position, playerCam.transform.forward, 100f, whatIsHittable);
-        if (array.Length < 1)
+        RaycastHit[] _hits = Physics.RaycastAll(playerCam.transform.position, playerCam.transform.forward, 100f, whatIsHittable);
+        if (_hits.Length < 1)
         {
             return playerCam.transform.position + (playerCam.transform.forward * 100f);
         }
-        if (array.Length > 1)
+        if (_hits.Length > 1)
         {
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < _hits.Length; i++)
             {
-                if (array[i].transform.gameObject.layer == LayerMask.NameToLayer("Enemy") || array[i].transform.gameObject.layer == LayerMask.NameToLayer("Object") || array[i].transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                if (_hits[i].transform.gameObject.layer == LayerMask.NameToLayer("Enemy") || _hits[i].transform.gameObject.layer == LayerMask.NameToLayer("Object") || _hits[i].transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
                 {
-                    return array[i].point;
+                    return _hits[i].point;
                 }
             }
         }
-        return array[0].point;
+        return _hits[0].point;
     }
 
-    public bool IsCrouching()
-    {
-        return crouching;
-    }
-
-    public bool IsDead()
-    {
-        return dead;
-    }
-
-    public Rigidbody GetRb()
-    {
-        return rb;
-    }
+    public bool IsCrouching() => crouching;
+    public bool IsDead() => dead;
+    public Rigidbody GetRb() => rb;
 }

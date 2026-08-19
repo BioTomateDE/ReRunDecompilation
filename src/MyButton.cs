@@ -19,16 +19,15 @@ public class MyButton : MonoBehaviour
     {
         if (!done)
         {
-            Manipulate[] array = manipulations;
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < manipulations.Length; i++)
             {
-                array[i].Activate();
+                manipulations[i].Activate();
             }
             done = true;
-            AudioSource componentInChildren = GetComponentInChildren<AudioSource>();
-            if ((bool)componentInChildren)
+            AudioSource _audioSource = GetComponentInChildren<AudioSource>();
+            if (_audioSource)
             {
-                componentInChildren.Play();
+                _audioSource.Play();
             }
         }
     }

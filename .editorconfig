@@ -1,5 +1,9 @@
 [*.cs]
 dotnet_diagnostic.RCS1102.severity = none  # Make class static
+dotnet_diagnostic.RCS1110.severity = none  # Declare inside namespace
 dotnet_diagnostic.RCS1163.severity = none  # Unused parameter
 dotnet_diagnostic.RCS1169.severity = none  # Make field read-only
 dotnet_diagnostic.RCS1213.severity = none  # Remove unused member declaration
+dotnet_diagnostic.IDE0002.severity = none  # Name can be simplified
+dotnet_diagnostic.IDE0060.severity = none  # Remove unused parameter
+dotnet_diagnostic.IDE1006.severity = none  # Naming rule violation

@@ -13,17 +13,17 @@ public class KillPlayer : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             GameManager.Instance.PlayerDied();
-            if ((bool)blood)
+            if (blood)
             {
                 Object.Instantiate(blood, other.transform.position, Quaternion.identity);
             }
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            Player component = other.transform.root.GetComponent<Player>();
-            if (component.hp > 0)
+            Player _player = other.transform.root.GetComponent<Player>();
+            if (_player.hp > 0)
             {
-                component.Damage(5000, other.transform.position);
+                _player.Damage(5000, other.transform.position);
             }
         }
     }
@@ -37,17 +37,17 @@ public class KillPlayer : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             GameManager.Instance.PlayerDied();
-            if ((bool)blood)
+            if (blood)
             {
                 Object.Instantiate(blood, other.transform.position, Quaternion.identity);
             }
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            Player component = other.transform.root.GetComponent<Player>();
-            if (component.hp > 0)
+            Player _player = other.transform.root.GetComponent<Player>();
+            if (_player.hp > 0)
             {
-                component.Damage(5000, other.transform.position);
+                _player.Damage(5000, other.transform.position);
             }
         }
     }

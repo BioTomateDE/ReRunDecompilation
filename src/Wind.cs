@@ -11,12 +11,12 @@ public class Wind : MonoBehaviour
 
     public void Update()
     {
-        float value = PlayerMovement.Instance.GetVelocity().magnitude / 60f;
-        value = Mathf.Clamp(value, 0f, 0.85f);
+        float _magnitude = PlayerMovement.Instance.GetVelocity().magnitude / 60f;
+        _magnitude = Mathf.Clamp(_magnitude, 0f, 0.85f);
         if (!PlayerMovement.Instance.grounded)
         {
-            value *= 2f;
+            _magnitude *= 2f;
         }
-        wind.volume = Mathf.Lerp(wind.volume, value, Time.deltaTime * 5f);
+        wind.volume = Mathf.Lerp(wind.volume, _magnitude, Time.deltaTime * 5f);
     }
 }

@@ -7,7 +7,7 @@ public class FinishLevel : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             AutoSplitterData.levelBeaten = 1;
-            WinScreen.Instance.gameObject.SetActive(value: true);
+            WinScreen.Instance.gameObject.SetActive(true);
             GameManager.Instance.LevelDone();
             SaveManager.Instance.state.times[AutoSplitterData.levelID] = Timer.Instance.GetTimer();
             SaveManager.Instance.Save();

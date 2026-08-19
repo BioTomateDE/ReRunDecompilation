@@ -29,7 +29,7 @@ public class SinglePlayer : MonoBehaviour
     public void Start()
     {
         Instance = this;
-        if ((bool)PlayerMovement.Instance)
+        if (PlayerMovement.Instance)
         {
             playerCam = PlayerMovement.Instance.playerCam;
         }
@@ -40,8 +40,9 @@ public class SinglePlayer : MonoBehaviour
         DrawGrabbing();
     }
 
-    private void DrawGrabbing()
-    {
+    private void DrawGrabbing() {
+        // kept empty method to preserve original information.
+        // will be removed in the next commit.
     }
 
     public void FindNewGrabLerp()
@@ -63,7 +64,7 @@ public class SinglePlayer : MonoBehaviour
     public void StopGrab()
     {
         grabLr.enabled = false;
-        if ((bool)objectGrabbing)
+        if (objectGrabbing)
         {
             Object.Destroy(grabJoint);
             objectGrabbing.angularDrag = 0.05f;

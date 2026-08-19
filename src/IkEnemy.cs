@@ -67,12 +67,12 @@ public class IkEnemy : MonoBehaviour
     {
         for (int i = 0; i < legs.Length; i++)
         {
-            int num = legs[i].ChainLength;
+            int _chainLength = legs[i].ChainLength;
             Transform parent = legs[i].transform;
-            while (num > 0)
+            while (_chainLength > 0)
             {
                 parent = parent.parent;
-                num--;
+                _chainLength--;
             }
             legTargets[i] = parent;
         }
@@ -82,40 +82,40 @@ public class IkEnemy : MonoBehaviour
     {
         for (int i = 0; i < legTargets.Length; i++)
         {
-            Vector3 vector = legTargets[i].position - root.position;
-            if (Physics.Raycast(legTargets[i].position + (legTargetOffset.x * vector) + currentVelocity + Vector3.up, Vector3.down, out var hitInfo, 50f, whatIsGround))
+            Vector3 _vector = legTargets[i].position - root.position;
+            if (Physics.Raycast(legTargets[i].position + (legTargetOffset.x * _vector) + currentVelocity + Vector3.up, Vector3.down, out var hitInfo, 50f, whatIsGround))
             {
                 targetPositions[i] = hitInfo.point;
             }
         }
     }
 
-    private void UpdateCurrentLegPositions(float threshold)
+    private void UpdateCurrentLegPositions(float _threshold)
     {
         for (int i = 0; i < legs.Length && (OppositeLegGrounded(i) || !(legProgress[i] < 0.01f) || !(CheckDistanceFromTargetPoint(i) < 4f)); i++)
         {
-            if (CheckDistanceFromTargetPoint(i) > threshold)
+            if (CheckDistanceFromTargetPoint(i) > _threshold)
             {
                 UpdateCurrentLegPosition(i);
             }
         }
     }
 
-    private bool OppositeLegGrounded(int leg)
+    private bool OppositeLegGrounded(int _leg)
     {
-        int num = (leg + 1) % legs.Length;
-        return legProgress[num] < 0.01f;
+        _leg = (_leg + 1) % legs.Length;
+        return legProgress[_leg] < 0.01f;
     }
 
-    private float CheckDistanceFromTargetPoint(int leg)
+    private float CheckDistanceFromTargetPoint(int _leg)
     {
-        return Vector3.Distance(currentPositions[leg], targetPositions[leg]);
+        return Vector3.Distance(currentPositions[_leg], targetPositions[_leg]);
     }
 
-    private void UpdateCurrentLegPosition(int leg)
+    private void UpdateCurrentLegPosition(int _leg)
     {
-        currentPositions[leg] = targetPositions[leg];
-        legProgress[leg] = 1f;
+        currentPositions[_leg] = targetPositions[_leg];
+        legProgress[_leg] = 1f;
     }
 
     private void LerpLegs()
@@ -129,26 +129,22 @@ public class IkEnemy : MonoBehaviour
         }
     }
 
-    public void OnDrawGizmos()
-    {
-    }
+    public void OnDrawGizmos() { }
 
     public void CollectGarbage()
     {
-        FastIKFabric[] array = legs;
-        for (int i = 0; i < array.Length; i++)
+        for (int i = 0; i < legs.Length; i++)
         {
-            Object.Destroy(array[i].Target.gameObject);
+            Object.Destroy(legs[i].Target.gameObject);
         }
     }
 
-    public void ForceCurrentPosition(int i)
+    public void ForceCurrentPosition(int _index)
     {
         if (legProgress != null)
         {
-            _ = legProgress[i];
-            legProgress[i] = 1f;
-            legs[i].Target.position = legs[i].transform.position;
+            legProgress[_index] = 1f;
+            legs[_index].Target.position = legs[_index].transform.position;
         }
     }
 }

@@ -33,11 +33,7 @@ public class PlayerPowers : MonoBehaviour
         }
     }
 
-    public void Dash()
-    {
-    }
+    public void Dash() { }
 
-    public void Speed()
-    {
-    }
+    public void Speed() { }
 }

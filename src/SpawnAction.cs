@@ -13,10 +13,9 @@ public class SpawnAction : Manipulate
 
     public void Active()
     {
-        GameObject[] array = enemies;
-        for (int i = 0; i < array.Length; i++)
+        for (int i = 0; i < enemies.Length; i++)
         {
-            array[i].SetActive(value: true);
+            enemies[i].SetActive(true);
         }
     }
 }

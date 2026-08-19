@@ -67,11 +67,11 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        Vector3 normalized = (target.position - ikController.root.position).normalized;
-        float num = Vector3.Distance(target.position, ikController.root.position);
-        MoveLogic(normalized, num);
-        ikController.RotateBody(normalized);
-        if (num < distance)
+        Vector3 _moveDir = (target.position - ikController.root.position).normalized;
+        float _distanceFromTarget = Vector3.Distance(target.position, ikController.root.position);
+        MoveLogic(_moveDir, _distanceFromTarget);
+        ikController.RotateBody(_moveDir);
+        if (_distanceFromTarget < distance)
         {
             if (archer)
             {
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Attack(normalized);
+                Attack(_moveDir);
             }
         }
         AttackLogic();
@@ -87,31 +87,30 @@ public class PlayerController : MonoBehaviour
 
     public void LiftArms()
     {
-        Rigidbody[] array = armsRb;
-        for (int i = 0; i < array.Length; i++)
+        for (int i = 0; i < armsRb.Length; i++)
         {
-            array[i].AddForce(Vector3.up * 35f);
+            armsRb[i].AddForce(Vector3.up * 35f);
             rootRb.AddForce(Vector3.down * 35f);
         }
     }
 
-    private void MoveLogic(Vector3 moveDir, float distanceFromTarget)
+    private void MoveLogic(Vector3 _moveDir, float _distanceFromTarget)
     {
         int num = 1;
-        if ((double)distanceFromTarget < 4.3)
+        if ((double)_distanceFromTarget < 4.3)
         {
             num = -1;
         }
-        ikController.MoveBody(moveDir * num);
+        ikController.MoveBody(_moveDir * num);
     }
 
-    private void Attack(Vector3 dir)
+    private void Attack(Vector3 _direction)
     {
         if (readyToAttack)
         {
             readyToAttack = false;
             Invoke("GetReadyToAttack", UnityEngine.Random.Range(0.7f, 3f));
-            weapon.AddForce(dir * 3000f);
+            weapon.AddForce(_direction * 3000f);
             sfx.Randomize();
             if (!(attackHoldForce <= 0f))
             {
@@ -130,9 +129,9 @@ public class PlayerController : MonoBehaviour
     {
         if (attacking)
         {
-            Vector3 vector = target.position - weapon.position;
-            weapon.AddForce(vector * attackHoldForce);
-            torsoRb.AddForce(-vector * attackHoldForce);
+            Vector3 _vector = target.position - weapon.position;
+            weapon.AddForce(_vector * attackHoldForce);
+            torsoRb.AddForce(-_vector * attackHoldForce);
         }
     }
 
@@ -143,8 +142,8 @@ public class PlayerController : MonoBehaviour
             readyToAttack = false;
             Invoke("GetReadyToAttack", UnityEngine.Random.Range(1.2f, 3.5f));
             GameObject gameObject = UnityEngine.Object.Instantiate(arrow, bow.position, Quaternion.identity);
-            Vector3 a = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
-            Vector3 vector = new Vector3(target.position.x, gameObject.transform.position.y, target.position.z);
+            Vector3 a = new(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+            Vector3 vector = new(target.position.x, gameObject.transform.position.y, target.position.z);
             gameObject.transform.LookAt(vector);
             float num = Vector3.Distance(a, vector);
             LaunchAngle = UnityEngine.Random.Range(5f, Mathf.Clamp(num, 0f, 60f));
@@ -153,7 +152,7 @@ public class PlayerController : MonoBehaviour
             float num3 = target.position.y - gameObject.transform.position.y;
             float num4 = Mathf.Sqrt(y * num * num / (2f * (num3 - (num * num2))));
             float y2 = num2 * num4;
-            Vector3 direction = new Vector3(0f, y2, num4);
+            Vector3 direction = new(0f, y2, num4);
             Vector3 velocity = gameObject.transform.TransformDirection(direction);
             gameObject.GetComponent<Rigidbody>().velocity = velocity;
         }
@@ -164,13 +163,13 @@ public class PlayerController : MonoBehaviour
         readyToAttack = true;
     }
 
-    public void SetTarget(Transform t)
+    public void SetTarget(Transform _transform)
     {
-        target = t;
+        target = _transform;
     }
 
-    public void SetSpeed(int s)
+    public void SetSpeed(int _speed)
     {
-        ikController.moveSpeed += s;
+        ikController.moveSpeed += _speed;
     }
 }

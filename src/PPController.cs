@@ -41,9 +41,9 @@ public class PPController : MonoBehaviour
         }
     }
 
-    public void UpdateFx(float t)
+    public void UpdateFx(float _time)
     {
-        float num = 1f - t;
+        float num = 1f - _time;
         desiredDistortion = -150f * num;
         desiredSaturation = -100f * num;
         desiredChroma = 1f * num;

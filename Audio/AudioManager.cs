@@ -115,7 +115,7 @@ namespace Audio
             {
                 if (sound.name == n)
                 {
-                    sound.source.pitch = 1f + Random.Range(0f - v, v);
+                    sound.source.pitch = 1f + Random.Range(-v, v);
                     break;
                 }
             }
@@ -202,7 +202,7 @@ namespace Audio
             {
                 int num = Random.Range(0, jumps.Length - 1);
                 Sound sound = jumps[num];
-                if ((bool)sound.source)
+                if (sound.source)
                 {
                     sound.source.Play();
                 }
