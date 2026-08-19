@@ -39,7 +39,7 @@ public class LooseSword : MonoBehaviour
             component.GetTorso().GetComponent<Rigidbody>().AddForce(vector * 500f);
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            Vector3 normalized = (Vector3.up * 1.4f + (PlayerMovement.Instance.transform.position - base.transform.position).normalized).normalized;
+            Vector3 normalized = ((Vector3.up * 1.4f) + (PlayerMovement.Instance.transform.position - base.transform.position).normalized).normalized;
             float num = Mathf.Clamp(Vector3.Distance(base.transform.position, PlayerMovement.Instance.transform.position) * 0.06f, 0.65f, 1f);
             rb.AddForce(normalized * 4500f * num);
             Object.Instantiate(hitSfx, base.transform.position, Quaternion.identity);

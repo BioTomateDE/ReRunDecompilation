@@ -63,11 +63,11 @@ public class PlayerStatus : MonoBehaviour
 
     public void Update()
     {
-        float value = 1f - (float)hp / (float)maxHp;
+        float value = 1f - ((float)hp / (float)maxHp);
         value = Mathf.Clamp(value, 0f, 1f);
-        vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, defaultVignette + value * 0.25f, Time.deltaTime * speed);
-        colorGrading.contrast.value = Mathf.Lerp(colorGrading.contrast.value, defaultContrast + value * 40f, Time.deltaTime * speed);
-        colorGrading.colorFilter.value = Color.Lerp(colorGrading.colorFilter.value, new Color(1f, 1f - value * 0.3f, 1f - value * 0.3f), Time.deltaTime * speed * 2f);
+        vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, defaultVignette + (value * 0.25f), Time.deltaTime * speed);
+        colorGrading.contrast.value = Mathf.Lerp(colorGrading.contrast.value, defaultContrast + (value * 40f), Time.deltaTime * speed);
+        colorGrading.colorFilter.value = Color.Lerp(colorGrading.colorFilter.value, new Color(1f, 1f - (value * 0.3f), 1f - (value * 0.3f)), Time.deltaTime * speed * 2f);
         if (healing && hp < maxHp && hp > 0)
         {
             hp++;

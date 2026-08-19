@@ -14,11 +14,11 @@ public class Plank : MonoBehaviour
         Transform[] componentsInChildren = GetComponentsInChildren<Transform>();
         foreach (Transform transform in componentsInChildren)
         {
-            if (!(transform == base.transform))
+            if (transform != base.transform)
             {
                 Rigidbody rigidbody = transform.gameObject.AddComponent<Rigidbody>();
                 rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
-                rigidbody.AddForce(-base.transform.forward * Random.Range(50, 750) + base.transform.right * Random.Range(50, 300) + base.transform.up * Random.Range(50, 400));
+                rigidbody.AddForce((-base.transform.forward * Random.Range(50, 750)) + (base.transform.right * Random.Range(50, 300)) + (base.transform.up * Random.Range(50, 400)));
                 transform.SetParent(null);
                 transform.gameObject.layer = LayerMask.NameToLayer("GroundOnly");
             }

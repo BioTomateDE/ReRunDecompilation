@@ -13,7 +13,7 @@ public class ControlMusic : MonoBehaviour
         if ((bool)MusicController.Instance)
         {
             float b = 0.02f;
-            if (PlayerMovement.Instance.GetVelocity().magnitude > 15f && (!GameManager.Instance.playerDead & GameManager.Instance.playing))
+            if (PlayerMovement.Instance.GetVelocity().magnitude > 15f && (!GameManager.Instance.playerDead && GameManager.Instance.playing))
             {
                 b = 1f;
             }

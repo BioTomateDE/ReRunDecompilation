@@ -111,7 +111,7 @@ namespace DitzelGames.FastIK
                 Vector3 normalized = (positionRootSpace - Positions[0]).normalized;
                 for (int j = 1; j < Positions.Length; j++)
                 {
-                    Positions[j] = Positions[j - 1] + normalized * BonesLength[j - 1];
+                    Positions[j] = Positions[j - 1] + (normalized * BonesLength[j - 1]);
                 }
             }
             else
@@ -130,12 +130,12 @@ namespace DitzelGames.FastIK
                         }
                         else
                         {
-                            Positions[num] = Positions[num + 1] + (Positions[num] - Positions[num + 1]).normalized * BonesLength[num];
+                            Positions[num] = Positions[num + 1] + ((Positions[num] - Positions[num + 1]).normalized * BonesLength[num]);
                         }
                     }
                     for (int m = 1; m < Positions.Length; m++)
                     {
-                        Positions[m] = Positions[m - 1] + (Positions[m] - Positions[m - 1]).normalized * BonesLength[m - 1];
+                        Positions[m] = Positions[m - 1] + ((Positions[m] - Positions[m - 1]).normalized * BonesLength[m - 1]);
                     }
                     if ((Positions[Positions.Length - 1] - positionRootSpace).sqrMagnitude < Delta * Delta)
                     {
@@ -151,7 +151,7 @@ namespace DitzelGames.FastIK
                     Plane plane = new Plane(Positions[n + 1] - Positions[n - 1], Positions[n - 1]);
                     Vector3 vector = plane.ClosestPointOnPlane(positionRootSpace2);
                     float angle = Vector3.SignedAngle(plane.ClosestPointOnPlane(Positions[n]) - Positions[n - 1], vector - Positions[n - 1], plane.normal);
-                    Positions[n] = Quaternion.AngleAxis(angle, plane.normal) * (Positions[n] - Positions[n - 1]) + Positions[n - 1];
+                    Positions[n] = (Quaternion.AngleAxis(angle, plane.normal) * (Positions[n] - Positions[n - 1])) + Positions[n - 1];
                 }
             }
             for (int num2 = 0; num2 < Positions.Length; num2++)
@@ -185,7 +185,7 @@ namespace DitzelGames.FastIK
             }
             else
             {
-                current.position = Root.rotation * position + Root.position;
+                current.position = (Root.rotation * position) + Root.position;
             }
         }
 

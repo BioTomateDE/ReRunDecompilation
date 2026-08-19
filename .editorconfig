@@ -1,0 +1,5 @@
+[*.cs]
+dotnet_diagnostic.RCS1102.severity = none  # Make class static
+dotnet_diagnostic.RCS1163.severity = none  # Unused parameter
+dotnet_diagnostic.RCS1169.severity = none  # Make field read-only
+dotnet_diagnostic.RCS1213.severity = none  # Remove unused member declaration

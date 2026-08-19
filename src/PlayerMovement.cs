@@ -201,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!crouching && !dead && grounded)
         {
-            float num = 1f;
+            const float num = 1f;
             float num2 = rb.velocity.magnitude;
             if (num2 > 20f)
             {
@@ -288,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
             num5 = 0.6f;
             num6 = 0.3f;
         }
-        float num8 = 0.01f;
+        const float num8 = 0.01f;
         rb.AddForce(orientation.forward * num4 * moveSpeed * 0.02f * num6);
         rb.AddForce(orientation.right * num3 * moveSpeed * 0.02f * num5);
         if (!grounded)
@@ -468,7 +468,7 @@ public class PlayerMovement : MonoBehaviour
         float num = Mathf.DeltaAngle(current, target);
         float num2 = 90f - num;
         float magnitude = new Vector2(rb.velocity.x, rb.velocity.z).magnitude;
-        return new Vector2(y: magnitude * Mathf.Cos(num * ((float)Math.PI / 180f)), x: magnitude * Mathf.Cos(num2 * ((float)Math.PI / 180f)));
+        return new Vector2(x: magnitude * Mathf.Cos(num2 * ((float)Math.PI / 180f)), y: magnitude * Mathf.Cos(num * ((float)Math.PI / 180f)));
     }
 
     private bool IsFloor(Vector3 v)
@@ -517,15 +517,15 @@ public class PlayerMovement : MonoBehaviour
                 velocityOverLifetime.z = rb.velocity.z * 2f;
             }
         }
-        float num = 1.3f;
+        const float num = 1.3f;
         if (IsWall(normal))
         {
             Vector3 normalized = lastMoveSpeed.normalized;
-            Vector3 vector = base.transform.position + Vector3.up * 1.6f;
-            UnityEngine.Debug.DrawLine(vector, vector + normalized * num, Color.blue, 10f);
-            if (!Physics.Raycast(vector, normalized, num, whatIsGround) && Physics.Raycast(vector + normalized * num, Vector3.down, out var hitInfo, 3f, whatIsGround))
+            Vector3 vector = base.transform.position + (Vector3.up * 1.6f);
+            UnityEngine.Debug.DrawLine(vector, vector + (normalized * num), Color.blue, 10f);
+            if (!Physics.Raycast(vector, normalized, num, whatIsGround) && Physics.Raycast(vector + (normalized * num), Vector3.down, out var hitInfo, 3f, whatIsGround))
             {
-                Vector3 vector2 = hitInfo.point + Vector3.up * playerHeight * 0.5f;
+                Vector3 vector2 = hitInfo.point + (Vector3.up * playerHeight * 0.5f);
                 MoveCamera.Instance.vaultOffset += base.transform.position - vector2;
                 base.transform.position = vector2;
                 rb.velocity = lastMoveSpeed * 0.4f;
@@ -550,14 +550,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     slideAudio.PlayStartSlide();
                 }
-                if (Vector3.Angle(Vector3.up, normal) > 1f)
-                {
-                    onRamp = true;
-                }
-                else
-                {
-                    onRamp = false;
-                }
+                onRamp = Vector3.Angle(Vector3.up, normal) > 1f;
                 grounded = true;
                 normalVector = normal;
                 cancellingGrounded = false;
@@ -634,7 +627,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit[] array = Physics.RaycastAll(playerCam.transform.position, playerCam.transform.forward, 100f, whatIsHittable);
         if (array.Length < 1)
         {
-            return playerCam.transform.position + playerCam.transform.forward * 100f;
+            return playerCam.transform.position + (playerCam.transform.forward * 100f);
         }
         if (array.Length > 1)
         {

@@ -93,7 +93,7 @@ public class Gun : MonoBehaviour
             num = 0f - num;
         }
         float y = offset.y;
-        Vector3 euler = new Vector3(y: (0f - offset.x) * 40f, x: y * 80f + reloadRotation, z: num * 50f) + recoilRotation;
+        Vector3 euler = new Vector3(x: (y * 80f) + reloadRotation, y: (0f - offset.x) * 40f, z: num * 50f) + recoilRotation;
         try
         {
             if (!(Time.deltaTime <= 0f))
@@ -121,9 +121,9 @@ public class Gun : MonoBehaviour
                 desiredBob = Vector3.zero;
                 return;
             }
-            float x = Mathf.PingPong(Time.time * bobSpeed, xBob) - xBob / 2f;
-            float y = Mathf.PingPong(Time.time * bobSpeed, yBob) - yBob / 2f;
-            float z = Mathf.PingPong(Time.time * bobSpeed, zBob) - zBob / 2f;
+            float x = Mathf.PingPong(Time.time * bobSpeed, xBob) - (xBob / 2f);
+            float y = Mathf.PingPong(Time.time * bobSpeed, yBob) - (yBob / 2f);
+            float z = Mathf.PingPong(Time.time * bobSpeed, zBob) - (zBob / 2f);
             desiredBob = new Vector3(x, y, z);
         }
     }
@@ -139,8 +139,8 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        float num = 1.5f;
-        recoilOffset += -(Vector3.forward + Vector3.up * 0.3f - Vector3.right * 0.35f);
+        const float num = 1.5f;
+        recoilOffset += -(Vector3.forward + (Vector3.up * 0.3f) - (Vector3.right * 0.35f));
         recoilRotation += -new Vector3(90f, UnityEngine.Random.Range(10f, 30f), UnityEngine.Random.Range(-50f, 50f)) * num;
     }
 

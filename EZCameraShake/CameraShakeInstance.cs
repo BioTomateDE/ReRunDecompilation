@@ -14,10 +14,6 @@ namespace EZCameraShake
 
         public bool DeleteOnInactive = true;
 
-        private float roughMod = 1f;
-
-        private float magnMod = 1f;
-
         private float fadeOutDuration;
 
         private float fadeInDuration;
@@ -30,29 +26,9 @@ namespace EZCameraShake
 
         private Vector3 amt;
 
-        public float ScaleRoughness
-        {
-            get
-            {
-                return roughMod;
-            }
-            set
-            {
-                roughMod = value;
-            }
-        }
+        public float ScaleRoughness { get; set; } = 1f;
 
-        public float ScaleMagnitude
-        {
-            get
-            {
-                return magnMod;
-            }
-            set
-            {
-                magnMod = value;
-            }
-        }
+        public float ScaleMagnitude { get; set; } = 1f;
 
         public float NormalizedFadeTime => currentFadeTime;
 
@@ -161,13 +137,13 @@ namespace EZCameraShake
             }
             if (sustain)
             {
-                tick += Time.deltaTime * Roughness * roughMod;
+                tick += Time.deltaTime * Roughness * ScaleRoughness;
             }
             else
             {
-                tick += Time.deltaTime * Roughness * roughMod * currentFadeTime;
+                tick += Time.deltaTime * Roughness * ScaleRoughness * currentFadeTime;
             }
-            return amt * Magnitude * magnMod * currentFadeTime;
+            return amt * Magnitude * ScaleMagnitude * currentFadeTime;
         }
 
         public void StartFadeOut(float fadeOutTime)

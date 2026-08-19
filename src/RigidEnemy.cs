@@ -159,12 +159,12 @@ public class RigidEnemy : MonoBehaviour
             }
             return;
         }
-        if (state == EnemyState.active && rb.velocity.magnitude < 1f && num > ik.heightAboveGround && num < ik.heightAboveGround + ik.heightAboveGround * 0.1f)
+        if (state == EnemyState.active && rb.velocity.magnitude < 1f && num > ik.heightAboveGround && num < ik.heightAboveGround + (ik.heightAboveGround * 0.1f))
         {
             headRb.AddForce(Vector3.up * force * 0.86f);
             return;
         }
-        float num3 = Mathf.Clamp(1f - RootHeight() / ik.heightAboveGround, -1f, 1f);
+        float num3 = Mathf.Clamp(1f - (RootHeight() / ik.heightAboveGround), -1f, 1f);
         if (num2 < tumbleAngle)
         {
             UpdateState(EnemyState.active);

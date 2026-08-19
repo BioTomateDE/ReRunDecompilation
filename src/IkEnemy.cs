@@ -83,7 +83,7 @@ public class IkEnemy : MonoBehaviour
         for (int i = 0; i < legTargets.Length; i++)
         {
             Vector3 vector = legTargets[i].position - root.position;
-            if (Physics.Raycast(legTargets[i].position + legTargetOffset.x * vector + currentVelocity + Vector3.up, Vector3.down, out var hitInfo, 50f, whatIsGround))
+            if (Physics.Raycast(legTargets[i].position + (legTargetOffset.x * vector) + currentVelocity + Vector3.up, Vector3.down, out var hitInfo, 50f, whatIsGround))
             {
                 targetPositions[i] = hitInfo.point;
             }

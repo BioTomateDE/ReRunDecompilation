@@ -54,7 +54,7 @@ public class SinglePlayer : MonoBehaviour
 
     public void HoldGrab()
     {
-        grabJoint.connectedAnchor = playerCam.transform.position + playerCam.transform.forward * 6.5f;
+        grabJoint.connectedAnchor = playerCam.transform.position + (playerCam.transform.forward * 6.5f);
         grabLr.startWidth = 0.05f;
         grabLr.endWidth = 0.05f;
         previousLookdir = playerCam.transform.forward;

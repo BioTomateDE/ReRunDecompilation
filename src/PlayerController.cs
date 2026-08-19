@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
             float y = Physics.gravity.y;
             float num2 = Mathf.Tan(LaunchAngle * ((float)Math.PI / 180f));
             float num3 = target.position.y - gameObject.transform.position.y;
-            float num4 = Mathf.Sqrt(y * num * num / (2f * (num3 - num * num2)));
+            float num4 = Mathf.Sqrt(y * num * num / (2f * (num3 - (num * num2))));
             float y2 = num2 * num4;
             Vector3 direction = new Vector3(0f, y2, num4);
             Vector3 velocity = gameObject.transform.TransformDirection(direction);

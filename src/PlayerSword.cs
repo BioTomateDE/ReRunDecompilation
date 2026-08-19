@@ -25,7 +25,7 @@ public class PlayerSword : MonoBehaviour
                 enemiesHit.Add(component);
                 CameraShaker.Instance.ShakeOnce(6f, 8f, 0.2f, 0.2f);
                 other.transform.root.GetComponent<Player>().Damage(50 + (int)(PlayerMovement.Instance.GetVelocity().magnitude * 1.4f), other.transform.position);
-                Vector3 vector = PlayerMovement.Instance.playerCam.forward + PlayerMovement.Instance.GetVelocity() * 0.08f;
+                Vector3 vector = PlayerMovement.Instance.playerCam.forward + (PlayerMovement.Instance.GetVelocity() * 0.08f);
                 component.GetTorso().GetComponent<Rigidbody>().AddForce(vector * 5000f);
                 sfx.Randomize();
                 Hitmarker.Instance.StartHitmarker();

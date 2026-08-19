@@ -38,7 +38,7 @@ public class Crosshair : MonoBehaviour
         Transform[] componentsInChildren = base.transform.GetComponentsInChildren<Transform>();
         foreach (Transform transform in componentsInChildren)
         {
-            if (!(transform == base.transform))
+            if (transform != base.transform)
             {
                 transform.gameObject.SetActive(value: false);
             }
