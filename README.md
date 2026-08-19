@@ -41,7 +41,7 @@ A few local variable names do *not* start with an underscore:
 * All local variables in static methods (since they can't access member variables)
 
 I also made some small potential behavioral changes and a better <kbd>Tab</kbd> console.
-If you want the exact original behavior, do `git checkout 6f6e3c4482d898000d39be3005a23014debdf763`.
+If you want the exact original behavior, do `git checkout 4444fff53a6de1c9f7ee98c4e7bd530925bb9ae9`.
 
 ## License
 This repository contains modified decompiled source code from **RE:RUN** (copyright holder **DaniDev**).

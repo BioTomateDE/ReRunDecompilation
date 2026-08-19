@@ -92,7 +92,7 @@ public class IkEnemy : MonoBehaviour
 
     private void UpdateCurrentLegPositions(float _threshold)
     {
-        for (int i = 0; i < legs.Length && (OppositeLegGrounded(i) || !(legProgress[i] < 0.01f) || !(CheckDistanceFromTargetPoint(i) < 4f)); i++)
+        for (int i = 0; i < legs.Length && (OppositeLegGrounded(i) || legProgress[i] >= 0.01f || CheckDistanceFromTargetPoint(i) >= 4f); i++)
         {
             if (CheckDistanceFromTargetPoint(i) > _threshold)
             {

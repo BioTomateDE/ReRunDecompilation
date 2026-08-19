@@ -436,7 +436,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsHoldingAgainstHorizontalVel(Vector2 _vel)
     {
-        if (!(_vel.x < -threshold) || !(x > 0f))
+        if (_vel.x >= -threshold || x <= 0f)
         {
             if (_vel.x > threshold)
             {
@@ -449,7 +449,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsHoldingAgainstVerticalVel(Vector2 _vel)
     {
-        if (!(_vel.y < -threshold) || !(y > 0f))
+        if (_vel.y >= -threshold || y <= 0f)
         {
             if (_vel.y > threshold)
             {

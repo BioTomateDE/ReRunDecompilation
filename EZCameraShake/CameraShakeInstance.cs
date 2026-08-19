@@ -36,7 +36,7 @@ namespace EZCameraShake
         {
             get
             {
-                if (!(currentFadeTime > 0f))
+                if (currentFadeTime <= 0f)
                 {
                     return sustain;
                 }

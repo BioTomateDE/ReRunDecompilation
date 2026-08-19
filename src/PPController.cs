@@ -33,7 +33,7 @@ public class PPController : MonoBehaviour
 
     public void Update()
     {
-        if (!(Mathf.Abs(colorGrading.saturation.value - desiredSaturation) < 0.1f))
+        if (Mathf.Abs(colorGrading.saturation.value - desiredSaturation) >= 0.1f)
         {
             colorGrading.saturation.value = Mathf.Lerp(colorGrading.saturation.value, desiredSaturation, Time.deltaTime * speed);
             chromaticAberration.intensity.value = Mathf.Lerp(chromaticAberration.intensity.value, desiredChroma, Time.deltaTime * speed);

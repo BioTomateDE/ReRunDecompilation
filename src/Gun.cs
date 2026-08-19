@@ -95,7 +95,7 @@ public class Gun : MonoBehaviour
         Vector3 euler = new Vector3((offset.y * 80f) + reloadRotation, (-offset.x) * 40f, _magnitude * 50f) + recoilRotation;
         try
         {
-            if (!(Time.deltaTime <= 0f))
+            if (Time.deltaTime > 0f)
             {
                 base.transform.localRotation = Quaternion.Lerp(base.transform.localRotation, Quaternion.Euler(euler), Time.deltaTime * 20f);
             }

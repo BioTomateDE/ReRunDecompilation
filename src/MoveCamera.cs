@@ -76,7 +76,7 @@ public class MoveCamera : MonoBehaviour
 
     private void MoveGun()
     {
-        if (rb && !(Mathf.Abs(rb.velocity.magnitude) < 4f) && PlayerMovement.Instance.grounded)
+        if (rb && Mathf.Abs(rb.velocity.magnitude) >= 4f && PlayerMovement.Instance.grounded)
         {
             PlayerMovement.Instance.IsCrouching();
         }

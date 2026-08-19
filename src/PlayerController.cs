@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
             Invoke("GetReadyToAttack", UnityEngine.Random.Range(0.7f, 3f));
             weapon.AddForce(_direction * 3000f);
             sfx.Randomize();
-            if (!(attackHoldForce <= 0f))
+            if (attackHoldForce > 0f)
             {
                 attacking = true;
                 Invoke("StopAttacking", attackHoldLength);
