@@ -35,7 +35,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void Damage(int _damage)
     {
-        if (hp > 0 && GameManager.Instance.playing)
+        if (hp > 0 && GameManager.Instance.playing && !Debug.Instance.god)
         {
             hp -= _damage;
             vignette.intensity.value *= 1.5f;

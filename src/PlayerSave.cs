@@ -4,12 +4,15 @@ public class PlayerSave
 
     public bool cameraShake { get; set; } = true;
 
+    /// unused; copypasted from karlson
     public bool motionBlur { get; set; } = true;
 
+    /// unused; copypasted from karlson
     public bool slowmo { get; set; } = true;
 
     public bool graphics { get; set; } = true;
 
+    /// unused; copypasted from karlson
     public bool muted { get; set; }
 
     public float sensitivity { get; set; } = 1f;

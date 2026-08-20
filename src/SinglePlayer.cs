@@ -35,15 +35,7 @@ public class SinglePlayer : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-        DrawGrabbing();
-    }
-
-    private void DrawGrabbing() {
-        // kept empty method to preserve original information.
-        // will be removed in the next commit.
-    }
+    public void Update() { }
 
     public void FindNewGrabLerp()
     {

@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
+        if (Debug.Instance.god) return;
         UIManager.Instance.HidePause();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -129,5 +130,5 @@ public class GameManager : MonoBehaviour
         rewindSymbol.SetActive(false);
     }
 
-    public void Restart(){}
+    public void Restart() { }
 }

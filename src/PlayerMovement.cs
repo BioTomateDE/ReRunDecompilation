@@ -5,81 +5,39 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject playerJumpSmokeFx;
-
     public GameObject footstepFx;
-
     public Transform playerCam;
-
     public Transform orientation;
-
     private Rigidbody rb;
-
     public bool dead;
-
     public bool exploded;
-
     private float moveSpeed = 6000f;
-
     private float maxSpeed = 22f;
-
     public bool grounded;
-
     public LayerMask whatIsGround;
-
-    private Vector3 crouchScale = new Vector3(1f, 1.05f, 1f);
-
+    private Vector3 crouchScale = new(1f, 1.05f, 1f);
     private Vector3 playerScale;
-
     private float slideForce = 800f;
-
     private float slideCounterMovement = 0.12f;
-
     private bool readyToJump = true;
-
-    private float jumpCooldown = 0.25f;
-
     private float jumpForce = 13f;
-
     private float x;
-
     private float y;
-
-    private float mouseDeltaX;
-
-    private float mouseDeltaY;
-
     private bool jumping;
-
     private bool sliding;
-
     private bool crouching;
-
     private Vector3 normalVector;
-
     public ParticleSystem ps;
-
     private ParticleSystem.EmissionModule psEmission;
-
     private Collider playerCollider;
-
     private float fallSpeed;
-
     private Vector3 lastMoveSpeed;
-
     private float playerHeight;
-
     public GameObject playerSmokeFx;
-
     public AlideAudio slideAudio;
-
     private float distance;
-
-    private int ticks;
-
     private bool onRamp;
-
     public bool simulate;
-
     public bool secondJump = true;
 
     [HideInInspector]
@@ -89,43 +47,19 @@ public class PlayerMovement : MonoBehaviour
     public int maxJumps = 1;
 
     private int resetJumpCounter;
-
     private int jumpCounterResetTime = 10;
-
     private float counterMovement = 0.14f;
-
     private float threshold = 0.01f;
-
     private int readyToCounterX;
-
     private int readyToCounterY;
-
-    private bool cancelling;
-
     private float maxSlopeAngle = 35f;
-
-    private bool airborne;
-
-    private bool onGround;
-
     private bool surfing;
-
     private bool cancellingGrounded;
-
     private bool cancellingSurf;
-
     private float delay = 5f;
-
     private int groundCancel;
-
-    private int wallCancel;
-
     private int surfCancel;
-
     public LayerMask whatIsHittable;
-
-    private float vel;
-
     public static PlayerMovement Instance { get; private set; }
 
     public void Awake()
@@ -609,25 +543,11 @@ public class PlayerMovement : MonoBehaviour
         surfing = false;
     }
 
-    public Vector3 GetVelocity()
-    {
-        return rb.velocity;
-    }
-
-    public float GetFallSpeed()
-    {
-        return rb.velocity.y;
-    }
-
-    public Collider GetPlayerCollider()
-    {
-        return playerCollider;
-    }
-
-    public Transform GetPlayerCamTransform()
-    {
-        return playerCam.transform;
-    }
+    public Vector3 GetPosition() => rb.position;
+    public Vector3 GetVelocity() => rb.velocity;
+    public float GetFallSpeed() => rb.velocity.y;
+    public Collider GetPlayerCollider() => playerCollider;
+    public Transform GetPlayerCamTransform() => playerCam.transform;
 
     public Vector3 HitPoint()
     {

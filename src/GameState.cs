@@ -31,8 +31,6 @@ public class GameState : MonoBehaviour
 
     public float fov = 1f;
 
-    public float cameraShake = 1f;
-
     public static GameState Instance { get; private set; }
 
     public void Awake()
@@ -60,37 +58,19 @@ public class GameState : MonoBehaviour
 
     public void SetGraphics(bool _pretty)
     {
+        int _qualityLevel = _pretty ? 5 : 0;
+        QualitySettings.SetQualityLevel(_qualityLevel);
         graphics = _pretty;
         ambientOcclusion.enabled.value = _pretty;
         lens.enabled.value = _pretty;
         bloom.enabled.value = _pretty;
-        if (!graphics)
-        {
-            QualitySettings.SetQualityLevel(0);
-        }
-        if (graphics)
-        {
-            QualitySettings.SetQualityLevel(5);
-        }
         SaveManager.Instance.state.graphics = _pretty;
         SaveManager.Instance.Save();
-    }
-
-    public void SetBlur(bool _enabled)
-    {
     }
 
     public void SetShake(bool _enabled)
     {
         shake = _enabled;
-        if (_enabled)
-        {
-            cameraShake = 1f;
-        }
-        else
-        {
-            cameraShake = 0f;
-        }
         SaveManager.Instance.state.cameraShake = _enabled;
         SaveManager.Instance.Save();
     }
@@ -102,31 +82,34 @@ public class GameState : MonoBehaviour
         SaveManager.Instance.Save();
     }
 
-    public void SetSensitivity(float _rawSens)
+    public float SetSensitivity(float _rawSens, bool _clamp = true)
     {
-        sensitivity = Mathf.Clamp(_rawSens, 0f, 5f);
+        sensitivity = _clamp ? Mathf.Clamp(_rawSens, 0f, 5f) : _rawSens;
         if (PlayerInput.Instance)
         {
             PlayerInput.Instance.UpdateSensitivity(sensitivity);
         }
         SaveManager.Instance.state.sensitivity = sensitivity;
         SaveManager.Instance.Save();
+        return sensitivity;
     }
 
-    public void SetMusic(float _rawMusicVolume)
+    public float SetMusic(float _rawMusicVolume, bool _clamp = true)
     {
-        music = Mathf.Clamp(_rawMusicVolume, 0f, 1f);
+        music = _clamp ? Mathf.Clamp(_rawMusicVolume, 0f, 1f) : _rawMusicVolume;
         MusicController.Instance.UpdateMusic(music);
         SaveManager.Instance.state.music = music;
         SaveManager.Instance.Save();
+        return music;
     }
 
-    public void SetVolume(float _rawVolume)
+    public float SetVolume(float _rawVolume, bool _clamp = true)
     {
-        volume = Mathf.Clamp(_rawVolume, 0f, 1f);
+        volume = _clamp ? Mathf.Clamp(_rawVolume, 0f, 1f) : _rawVolume;
         AudioListener.volume = volume;
         SaveManager.Instance.state.volume = volume;
         SaveManager.Instance.Save();
+        return volume;
     }
 
     public void ApplySettings()
@@ -142,21 +125,21 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void SetFov(float _rawFov)
+    public float SetFov(float _rawFov, bool _clamp = true)
     {
-        fov = Mathf.Clamp(_rawFov, 50f, 150f);
+        fov = _clamp ? Mathf.Clamp(_rawFov, 50f, 150f) : _rawFov;
         if (MoveCamera.Instance)
         {
             MoveCamera.Instance.UpdateFov(fov);
         }
         SaveManager.Instance.state.fov = fov;
         SaveManager.Instance.Save();
+        return fov;
     }
 
     private void UpdateSettings()
     {
         SetGraphics(graphics);
-        SetBlur(blur);
         SetSensitivity(sensitivity);
         SetMusic(music);
         SetVolume(volume);

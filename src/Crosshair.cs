@@ -5,7 +5,7 @@ public class Crosshair : MonoBehaviour
     public enum CrosshairMode
     {
         Normal = 0,
-        Button = 1
+        Button = 1,
     }
 
     public GameObject crosshair;
